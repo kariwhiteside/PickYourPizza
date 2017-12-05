@@ -55,8 +55,8 @@ public class MeatImageAdapter extends BaseAdapter {
 
         LayoutInflater li = ((Activity) mContext).getLayoutInflater();
         myView = li.inflate(R.layout.grid_item, null);
-        ImageView imageView = (ImageView) myView.findViewById(R.id.grid_img);
-        TextView txt = (TextView) myView.findViewById(R.id.grid_txt);
+        ImageView imageView = myView.findViewById(R.id.grid_img);
+        TextView txt = myView.findViewById(R.id.grid_txt);
 
         imageView.setImageResource(meatImages[position]);
         txt.setText(meatNames[position]);

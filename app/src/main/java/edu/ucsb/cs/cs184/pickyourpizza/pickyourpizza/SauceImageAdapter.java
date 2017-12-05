@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,7 +16,7 @@ import java.util.ArrayList;
  * Created by joesong on 12/4/17.
  */
 
-public class SauceImageAdapter {
+public class SauceImageAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<Integer> selectedPositions = new ArrayList<>();
     private ArrayList<String> selectedSauces = new ArrayList<>();
@@ -53,8 +54,8 @@ public class SauceImageAdapter {
 
         LayoutInflater li = ((Activity) mContext).getLayoutInflater();
         myView = li.inflate(R.layout.grid_item, null);
-        ImageView imageView = (ImageView) myView.findViewById(R.id.grid_img);
-        TextView txt = (TextView) myView.findViewById(R.id.grid_txt);
+        ImageView imageView = myView.findViewById(R.id.grid_img);
+        TextView txt = myView.findViewById(R.id.grid_txt);
 
         imageView.setImageResource(sauceImages[position]);
         txt.setText(sauceNames[position]);
