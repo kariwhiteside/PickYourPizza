@@ -20,7 +20,8 @@ import java.util.ArrayList;
 
 public class StyleImageAdapter extends BaseAdapter {
     private Context mContext;
-    private ArrayList<Integer> selectedPositions = new ArrayList<>();
+    private int selectedPosition = -1;
+    private String selectedStyle = "";
 
     public StyleImageAdapter(Context c) {
         mContext = c;
@@ -39,12 +40,8 @@ public class StyleImageAdapter extends BaseAdapter {
     }
 
     public void setSelectedPositions(int position){
-        if(selectedPositions.contains(position)){
-            selectedPositions.remove(Integer.valueOf(position));
-        }
-        else {
-            selectedPositions.add(position);
-        }
+        selectedPosition = position;
+        selectedStyle = styleNames[position];
     }
 
     // create a new ImageView for each item referenced by the Adapter
@@ -59,7 +56,7 @@ public class StyleImageAdapter extends BaseAdapter {
         imageView.setImageResource(styleImages[position]);
         txt.setText(styleNames[position]);
 
-        if(selectedPositions.contains(position)) {
+        if(selectedPosition == position) {
             imageView.setBackgroundColor(Color.BLUE);
         } else {
             imageView.setBackgroundColor(Color.TRANSPARENT);

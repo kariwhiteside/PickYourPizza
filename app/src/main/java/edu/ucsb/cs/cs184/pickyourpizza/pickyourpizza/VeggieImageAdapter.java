@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class VeggieImageAdapter {
     private Context mContext;
     private ArrayList<Integer> selectedPositions = new ArrayList<>();
+    private ArrayList<String> selectedVeggies = new ArrayList<>();
 
     public VeggieImageAdapter(Context c) {
         mContext = c;
@@ -38,9 +39,11 @@ public class VeggieImageAdapter {
     public void setSelectedPositions(int position){
         if(selectedPositions.contains(position)){
             selectedPositions.remove(Integer.valueOf(position));
+            selectedVeggies.remove(veggieNames[position]);
         }
         else {
             selectedPositions.add(position);
+            selectedVeggies.add(veggieNames[position]);
         }
     }
 

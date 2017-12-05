@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class SauceImageAdapter {
     private Context mContext;
     private ArrayList<Integer> selectedPositions = new ArrayList<>();
+    private ArrayList<String> selectedSauces = new ArrayList<>();
 
     public SauceImageAdapter(Context c) {
         mContext = c;
@@ -38,9 +39,11 @@ public class SauceImageAdapter {
     public void setSelectedPositions(int position){
         if(selectedPositions.contains(position)){
             selectedPositions.remove(Integer.valueOf(position));
+            selectedSauces.remove(sauceNames[position]);
         }
         else {
             selectedPositions.add(position);
+            selectedSauces.add(sauceNames[position]);
         }
     }
 

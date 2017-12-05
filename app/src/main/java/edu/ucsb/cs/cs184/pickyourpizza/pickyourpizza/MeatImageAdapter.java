@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class MeatImageAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<Integer> selectedPositions = new ArrayList<>();
+    private ArrayList<String> selectedMeats = new ArrayList<>();
 
     public MeatImageAdapter(Context c) {
         mContext = c;
@@ -41,9 +42,11 @@ public class MeatImageAdapter extends BaseAdapter {
     public void setSelectedPositions(int position){
         if(selectedPositions.contains(position)){
             selectedPositions.remove(Integer.valueOf(position));
+            selectedMeats.add(meatNames[position]);
         }
         else {
             selectedPositions.add(position);
+            selectedMeats.remove(meatNames[position]);
         }
     }
 

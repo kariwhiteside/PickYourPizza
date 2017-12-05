@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class CheeseImageAdapter {
     private Context mContext;
     private ArrayList<Integer> selectedPositions = new ArrayList<>();
+    private ArrayList<String> selectedCheeses = new ArrayList<>();
 
     public CheeseImageAdapter(Context c) {
         mContext = c;
@@ -38,9 +39,11 @@ public class CheeseImageAdapter {
     public void setSelectedPositions(int position){
         if(selectedPositions.contains(position)){
             selectedPositions.remove(Integer.valueOf(position));
+            selectedCheeses.remove(cheeseNames[position]);
         }
         else {
             selectedPositions.add(position);
+            selectedCheeses.add(cheeseNames[position]);
         }
     }
 
