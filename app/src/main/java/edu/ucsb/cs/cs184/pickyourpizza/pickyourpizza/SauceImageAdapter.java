@@ -18,8 +18,8 @@ import java.util.ArrayList;
 
 public class SauceImageAdapter extends BaseAdapter {
     private Context mContext;
-    private ArrayList<Integer> selectedPositions = new ArrayList<>();
-    private ArrayList<String> selectedSauces = new ArrayList<>();
+    private int selectedPosition = -1;
+    private String selectedSauce = "";
 
     public SauceImageAdapter(Context c) {
         mContext = c;
@@ -38,14 +38,9 @@ public class SauceImageAdapter extends BaseAdapter {
     }
 
     public void setSelectedPositions(int position){
-        if(selectedPositions.contains(position)){
-            selectedPositions.remove(Integer.valueOf(position));
-            selectedSauces.remove(sauceNames[position]);
-        }
-        else {
-            selectedPositions.add(position);
-            selectedSauces.add(sauceNames[position]);
-        }
+        selectedPosition = position;
+        selectedSauce = sauceNames[position];
+
     }
 
     // create a new ImageView for each item referenced by the Adapter
@@ -60,7 +55,7 @@ public class SauceImageAdapter extends BaseAdapter {
         imageView.setImageResource(sauceImages[position]);
         txt.setText(sauceNames[position]);
 
-        if(selectedPositions.contains(position)) {
+        if(selectedPosition == position) {
             imageView.setBackgroundColor(Color.BLUE);
         } else {
             imageView.setBackgroundColor(Color.TRANSPARENT);
