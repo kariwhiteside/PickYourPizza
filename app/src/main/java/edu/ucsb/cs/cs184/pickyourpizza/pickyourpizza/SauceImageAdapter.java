@@ -24,7 +24,7 @@ public class SauceImageAdapter {
     }
 
     public int getCount() {
-        return mThumbIds.length;
+        return sauceImages.length;
     }
 
     public Object getItem(int position) {
@@ -53,8 +53,8 @@ public class SauceImageAdapter {
         ImageView imageView = (ImageView) myView.findViewById(R.id.grid_img);
         TextView txt = (TextView) myView.findViewById(R.id.grid_txt);
 
-        imageView.setImageResource(mThumbIds[position]);
-        txt.setText(mThumbNames[position]);
+        imageView.setImageResource(sauceImages[position]);
+        txt.setText(sauceNames[position]);
 
         if(selectedPositions.contains(position)) {
             imageView.setBackgroundColor(Color.BLUE);
@@ -65,7 +65,7 @@ public class SauceImageAdapter {
     }
 
     // references to our images
-    private Integer[] mThumbIds = {
+    private Integer[] sauceImages = {
             R.drawable.barbequesauce, R.drawable.creamygarlicsauce,
             R.drawable.creamysriracha, R.drawable.marinarasauce,
             R.drawable.pestosauce, R.drawable.ranchsauce,
@@ -73,7 +73,7 @@ public class SauceImageAdapter {
 
     };
 
-    private String[] mThumbNames = {
+    private String[] sauceNames = {
             "Barbeque Sauce", "Creamy Garlic Sauce",
             "Creamy Sriracha", "Marinara Sauce",
             "Pesto Sauce", "Ranch Sauce",

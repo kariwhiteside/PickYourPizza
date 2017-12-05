@@ -27,7 +27,7 @@ public class StyleImageAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        return mThumbIds.length;
+        return styleImages.length;
     }
 
     public Object getItem(int position) {
@@ -56,8 +56,8 @@ public class StyleImageAdapter extends BaseAdapter {
         ImageView imageView = (ImageView) myView.findViewById(R.id.grid_img);
         TextView txt = (TextView) myView.findViewById(R.id.grid_txt);
 
-        imageView.setImageResource(mThumbIds[position]);
-        txt.setText(mThumbNames[position]);
+        imageView.setImageResource(styleImages[position]);
+        txt.setText(styleNames[position]);
 
         if(selectedPositions.contains(position)) {
             imageView.setBackgroundColor(Color.BLUE);
@@ -68,13 +68,13 @@ public class StyleImageAdapter extends BaseAdapter {
     }
 
     // references to our images
-    private Integer[] mThumbIds = {
+    private Integer[] styleImages = {
             R.drawable.glutenfreecrust, R.drawable.panpizza,
             R.drawable.thincrust, R.drawable.wheatcrust,
             R.drawable.whitecrust
     };
 
-    private String[] mThumbNames = {
+    private String[] styleNames = {
             "Gluten Free Crust", "Pan Pizza",
             "Thin Crust", "Wheat Crust",
             "White Crust"

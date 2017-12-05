@@ -24,7 +24,7 @@ public class VeggieImageAdapter {
     }
 
     public int getCount() {
-        return mThumbIds.length;
+        return veggieImages.length;
     }
 
     public Object getItem(int position) {
@@ -53,8 +53,8 @@ public class VeggieImageAdapter {
         ImageView imageView = (ImageView) myView.findViewById(R.id.grid_img);
         TextView txt = (TextView) myView.findViewById(R.id.grid_txt);
 
-        imageView.setImageResource(mThumbIds[position]);
-        txt.setText(mThumbNames[position]);
+        imageView.setImageResource(veggieImages[position]);
+        txt.setText(veggieNames[position]);
 
         if(selectedPositions.contains(position)) {
             imageView.setBackgroundColor(Color.BLUE);
@@ -65,7 +65,7 @@ public class VeggieImageAdapter {
     }
 
     // references to our images
-    private Integer[] mThumbIds = {
+    private Integer[] veggieImages = {
             R.drawable.apples, R.drawable.artichokehearts, R.drawable.bananapeppers,
             R.drawable.basil, R.drawable.bellpeppers, R.drawable.blackolives,
             R.drawable.broccoli, R.drawable.cashews, R.drawable.cherrytomatoes,
@@ -81,7 +81,7 @@ public class VeggieImageAdapter {
 
     };
 
-    private String[] mThumbNames = {
+    private String[] veggieNames = {
             "Apples", "Artichoke Hearts", "Banana Peppers",
             "Basil", "Bell Peppers", "Black Olives",
             "Broccoli", "Cashews", "Cherry Tomatoes",

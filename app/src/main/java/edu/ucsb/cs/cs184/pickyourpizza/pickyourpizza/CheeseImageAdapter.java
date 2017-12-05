@@ -24,7 +24,7 @@ public class CheeseImageAdapter {
     }
 
     public int getCount() {
-        return mThumbIds.length;
+        return cheeseImages.length;
     }
 
     public Object getItem(int position) {
@@ -53,8 +53,8 @@ public class CheeseImageAdapter {
         ImageView imageView = (ImageView) myView.findViewById(R.id.grid_img);
         TextView txt = (TextView) myView.findViewById(R.id.grid_txt);
 
-        imageView.setImageResource(mThumbIds[position]);
-        txt.setText(mThumbNames[position]);
+        imageView.setImageResource(cheeseImages[position]);
+        txt.setText(cheeseNames[position]);
 
         if(selectedPositions.contains(position)) {
             imageView.setBackgroundColor(Color.BLUE);
@@ -65,14 +65,14 @@ public class CheeseImageAdapter {
     }
 
     // references to our images
-    private Integer[] mThumbIds = {
+    private Integer[] cheeseImages = {
             R.drawable.extramozzarella, R.drawable.fetacheese,
             R.drawable.gorgonzolacheese, R.drawable.parmesancheese,
             R.drawable.ricottacheese, R.drawable.romanocheese,
             R.drawable.vegancheese
     };
 
-    private String[] mThumbNames = {
+    private String[] cheeseNames = {
             "Extra Mozzarella", "Feta Cheese",
             "Gorgonzola Cheese", "Parmesan Cheese",
             "Ricotta Cheese", "Romano Cheese",

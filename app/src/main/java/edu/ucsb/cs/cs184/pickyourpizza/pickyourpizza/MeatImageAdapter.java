@@ -27,7 +27,7 @@ public class MeatImageAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        return mThumbIds.length;
+        return meatImages.length;
     }
 
     public Object getItem(int position) {
@@ -56,8 +56,8 @@ public class MeatImageAdapter extends BaseAdapter {
         ImageView imageView = (ImageView) myView.findViewById(R.id.grid_img);
         TextView txt = (TextView) myView.findViewById(R.id.grid_txt);
 
-        imageView.setImageResource(mThumbIds[position]);
-        txt.setText(mThumbNames[position]);
+        imageView.setImageResource(meatImages[position]);
+        txt.setText(meatNames[position]);
 
         if(selectedPositions.contains(position)) {
             imageView.setBackgroundColor(Color.BLUE);
@@ -68,7 +68,7 @@ public class MeatImageAdapter extends BaseAdapter {
     }
 
     // references to our images
-    private Integer[] mThumbIds = {
+    private Integer[] meatImages = {
             R.drawable.anchovies, R.drawable.bacon,
             R.drawable.barbequechicken, R.drawable.beef,
             R.drawable.canadianbacon, R.drawable.chorizo,
@@ -78,7 +78,7 @@ public class MeatImageAdapter extends BaseAdapter {
             R.drawable.salami, R.drawable.sausage
     };
 
-    private String[] mThumbNames = {
+    private String[] meatNames = {
             "Anchovies", "Bacon", "Barbecue Chicken",
             "Beef", "Canadian Bacon", "Chorizo",
             "Garlic Clams", "Grilled Chicken",
