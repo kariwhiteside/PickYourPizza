@@ -2,7 +2,6 @@ package edu.ucsb.cs.cs184.pickyourpizza.pickyourpizza;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;

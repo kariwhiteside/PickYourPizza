@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/fragment3"
-        android:name="edu.ucsb.cs.cs184.pickyourpizza.pickyourpizza.StartPageFragment"
+        android:name="edu.ucsb.cs.cs184.pickyourpizza.pickyourpizza.NumPeopleFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </FrameLayout>
