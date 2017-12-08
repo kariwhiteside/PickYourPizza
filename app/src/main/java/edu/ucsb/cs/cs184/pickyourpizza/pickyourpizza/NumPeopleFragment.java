@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 /**
  * Created by Kari on 12/6/17.
@@ -24,16 +25,19 @@ public class NumPeopleFragment extends Fragment {
         view = inflater.inflate(R.layout.num_people_fragment, container, false);
 
         final ImageView peopleImageView = (ImageView)view.findViewById(R.id.peopleImageView);
+        final TextView numberTextView = (TextView)view.findViewById(R.id.numberTextView);
 
         SeekBar seekBar = (SeekBar)view.findViewById(R.id.seekBar);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                int prog = progress + 1;
+                numberTextView.setText("" + prog);
                 String fileName;
-                if (progress < 10) {
-                    fileName = "people0" + progress;
+                if (prog < 10) {
+                    fileName = "people0" + prog;
                 } else {
-                    fileName = "people" + progress;
+                    fileName = "people" + prog;
                 }
                 Context context = peopleImageView.getContext();
                 int id = context.getResources().getIdentifier(fileName, "drawable", context.getPackageName());
