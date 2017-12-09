@@ -1,11 +1,13 @@
 package edu.ucsb.cs.cs184.pickyourpizza.pickyourpizza;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 
 /**
@@ -13,8 +15,23 @@ import android.widget.GridView;
  */
 
 public class SauceSelectionFragment extends Fragment {
-    View rootView;
 
+    View rootView;
+    FragmentHelper activityCallback;
+
+    public interface FragmentHelper {
+        public void changeFragment(String fragment);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            activityCallback = (FragmentHelper)context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement FragmentHelper");
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,6 +40,7 @@ public class SauceSelectionFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        rootView = inflater.inflate(R.layout.gridview_fragment, container, false);
         GridView gridView = rootView.findViewById(R.id.gridview);
         final SauceImageAdapter adapterImage = new SauceImageAdapter(getActivity());
         gridView.setAdapter(adapterImage);
@@ -34,7 +52,24 @@ public class SauceSelectionFragment extends Fragment {
                 adapterImage.notifyDataSetChanged();
             }
         });
-        return gridView;
+
+        Button prevButton = rootView.findViewById(R.id.prevButton);
+        prevButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activityCallback.changeFragment("StyleSelectionFragment");
+            }
+        });
+
+        Button nextButton = rootView.findViewById(R.id.nextButton);
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activityCallback.changeFragment("VeggieSelectionFragment");
+            }
+        });
+
+        return rootView;
     }
 
     @Override
