@@ -16,18 +16,28 @@ import android.widget.TextView;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class StyleImageAdapter extends BaseAdapter {
     private Context mContext;
     private int selectedPosition = -1;
     private String selectedStyle = "";
+    // references to our images
+    private ArrayList<Integer> styleImages = new ArrayList<Integer>();
+    private ArrayList<String> styleNames = new ArrayList<String>();
 
     public StyleImageAdapter(Context c) {
         mContext = c;
+        styleImages.addAll(Arrays.asList(R.drawable.glutenfreecrust, R.drawable.panpizza,
+                R.drawable.thincrust, R.drawable.wheatcrust,
+                R.drawable.whitecrust));
+        styleNames.addAll(Arrays.asList("Gluten Free Crust", "Pan Pizza",
+                "Thin Crust", "Wheat Crust",
+                "White Crust"));
     }
 
     public int getCount() {
-        return styleImages.length;
+        return styleImages.size();
     }
 
     public Object getItem(int position) {
@@ -40,7 +50,7 @@ public class StyleImageAdapter extends BaseAdapter {
 
     public void setSelectedPositions(int position){
         selectedPosition = position;
-        selectedStyle = styleNames[position];
+        selectedStyle = styleNames.get(position);
     }
 
     // create a new ImageView for each item referenced by the Adapter
@@ -52,8 +62,8 @@ public class StyleImageAdapter extends BaseAdapter {
         ImageView imageView = myView.findViewById(R.id.grid_img);
         TextView txt = myView.findViewById(R.id.grid_txt);
 
-        imageView.setImageResource(styleImages[position]);
-        txt.setText(styleNames[position]);
+        imageView.setImageResource(styleImages.get(position));
+        txt.setText(styleNames.get(position));
 
         if(selectedPosition == position) {
             imageView.setBackgroundColor(Color.BLUE);
@@ -62,17 +72,4 @@ public class StyleImageAdapter extends BaseAdapter {
         }
         return myView;
     }
-
-    // references to our images
-    private Integer[] styleImages = {
-            R.drawable.glutenfreecrust, R.drawable.panpizza,
-            R.drawable.thincrust, R.drawable.wheatcrust,
-            R.drawable.whitecrust
-    };
-
-    private String[] styleNames = {
-            "Gluten Free Crust", "Pan Pizza",
-            "Thin Crust", "Wheat Crust",
-            "White Crust"
-    };
 }

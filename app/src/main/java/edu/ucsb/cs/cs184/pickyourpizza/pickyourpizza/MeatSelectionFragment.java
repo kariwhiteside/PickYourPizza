@@ -57,7 +57,7 @@ public class MeatSelectionFragment extends Fragment {
         prevButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activityCallback.changeFragment("VeggieFragment");
+                activityCallback.changeFragment("VeggieSelectionFragment");
             }
         });
 
