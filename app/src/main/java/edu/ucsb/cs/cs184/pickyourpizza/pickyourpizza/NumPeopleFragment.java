@@ -4,9 +4,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -18,6 +20,21 @@ import android.widget.TextView;
 public class NumPeopleFragment extends Fragment {
 
     View view;
+    FragmentHelper activityCallback;
+
+    public interface FragmentHelper {
+        public void changeFragment(String fragment);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            activityCallback = (FragmentHelper)context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement FragmentHelper");
+        }
+    }
 
     @Nullable
     @Override
@@ -55,6 +72,15 @@ public class NumPeopleFragment extends Fragment {
             }
         });
 
+        Button nextButton = (Button)view.findViewById(R.id.nextButton);
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activityCallback.changeFragment("StyleSelectionFragment");
+            }
+        });
+
         return view;
     }
+
 }

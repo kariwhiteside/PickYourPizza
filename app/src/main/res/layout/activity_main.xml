@@ -4,12 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/fragmentContainer"
     tools:context="edu.ucsb.cs.cs184.pickyourpizza.pickyourpizza.MainActivity">
 
-
-    <fragment
-        android:id="@+id/fragment3"
-        android:name="edu.ucsb.cs.cs184.pickyourpizza.pickyourpizza.NumPeopleFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 </FrameLayout>
