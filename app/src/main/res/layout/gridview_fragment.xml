@@ -1,40 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
 
     <GridView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/gridview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_centerInParent="true"
         android:columnWidth="185dp"
-        android:paddingTop="6dp"
+        android:gravity="center"
+        android:horizontalSpacing="10dp"
+        android:numColumns="auto_fit"
         android:paddingBottom="50dp"
         android:paddingLeft="6dp"
-        android:numColumns="auto_fit"
-        android:verticalSpacing="40dp"
-        android:horizontalSpacing="10dp"
+        android:paddingTop="6dp"
         android:stretchMode="columnWidth"
-        android:gravity="center"
-        android:layout_centerInParent="true"
-        />
+        android:verticalSpacing="40dp" />
 
     <Button
         android:id="@+id/prevButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text = "Previous"
-        android:layout_alignLeft="@id/gridview"
         android:layout_alignBottom="@id/gridview"
-        />
+        android:layout_alignLeft="@id/gridview"
+        android:text="Previous" />
 
     <Button
         android:id="@+id/nextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Next"
         android:layout_alignBottom="@id/gridview"
-        android:layout_alignRight="@id/gridview"/>
+        android:layout_alignRight="@id/gridview"
+        android:text="Next" />
 
 </RelativeLayout>
