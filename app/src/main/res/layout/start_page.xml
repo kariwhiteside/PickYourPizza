@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="90dp"
         android:adjustViewBounds="true"
         android:cropToPadding="true"
         android:scaleType="fitCenter"
@@ -40,10 +40,11 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:adjustViewBounds="true"
+        android:cropToPadding="true"
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/app_logo" />
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/tap_to_start"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
@@ -54,6 +55,30 @@
         android:maxHeight="100dp"
         android:scaleType="fitCenter"
         android:layout_marginBottom="30dp"
-        app:srcCompat="@drawable/tap_to_start" />
+        app:srcCompat="@drawable/tap_to_start" />-->
+
+    <!--<pl.droidsonroids.gif.GifImageView
+        android:id="@+id/tap_to_start_gif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:adjustViewBounds="true"
+        android:cropToPadding="true"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/tap_to_start" />-->
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/tap_to_start_gif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="60dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/tap_to_start_fixed" />
+
+
 
 </RelativeLayout>
