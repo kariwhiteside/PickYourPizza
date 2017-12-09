@@ -76,7 +76,7 @@
         android:layout_marginBottom="60dp"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
-        android:src="@drawable/tap_to_start" />
+        android:src="@drawable/tap_to_start_fixed" />
 
 
 
