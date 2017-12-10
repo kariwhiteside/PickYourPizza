@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import java.io.Serializable;
 
@@ -53,6 +54,11 @@ public class StyleSelectionFragment extends Fragment {
         GridView gridView = rootView.findViewById(R.id.gridview);
         adapterImage = new StyleImageAdapter(getActivity());
         gridView.setAdapter(adapterImage);
+        Log.i("StyleFragment: ", "adapter set");
+
+
+        TextView textView = (TextView)rootView.findViewById(R.id.gridviewTextView);
+        textView.setText("Style:");
 
         // set selectedPosition in gridView adapter
         adapterImage.setSelectedPositions(selectedPosition);
@@ -110,7 +116,6 @@ public class StyleSelectionFragment extends Fragment {
         adapterImage = new StyleImageAdapter(getActivity());
         adapterImage.setSelectedPositions(position);
         adapterImage.notifyDataSetChanged();
-
     }
 
 

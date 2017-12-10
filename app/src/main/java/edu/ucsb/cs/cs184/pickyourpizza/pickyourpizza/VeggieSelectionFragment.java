@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -51,11 +52,14 @@ public class VeggieSelectionFragment extends Fragment {
         GridView gridView = rootView.findViewById(R.id.gridview);
         adapterImage = new VeggieImageAdapter(getActivity());
         gridView.setAdapter(adapterImage);
-
+      
         // set selectedPositions in gridView adapter
         adapterImage.setSelectedPositions(selectedPositions);
         adapterImage.setSelectedVeggies(selectedVeggies);
         adapterImage.notifyDataSetChanged();
+
+        TextView textView = (TextView)rootView.findViewById(R.id.gridviewTextView);
+        textView.setText("Veggie Toppings:");
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

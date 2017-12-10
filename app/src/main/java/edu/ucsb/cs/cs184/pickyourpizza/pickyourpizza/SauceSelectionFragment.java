@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
 
 /**
  * Created by joesong on 12/4/17.
@@ -53,6 +54,9 @@ public class SauceSelectionFragment extends Fragment {
         // set selectedPosition in gridView adapter
         adapterImage.setSelectedPositions(selectedPosition);
         adapterImage.notifyDataSetChanged();
+
+        TextView textView = (TextView)rootView.findViewById(R.id.gridviewTextView);
+        textView.setText("Sauce:");
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

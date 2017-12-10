@@ -77,9 +77,6 @@ public class MainActivity extends AppCompatActivity implements CheeseSelectionFr
 
     @Override
     public void changeFragment(String newFragment) {
-
-        fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragmentContainer)).commit();
-
         switch (newFragment) {
             case "NumPeopleFragment":
                 fragmentManager.beginTransaction()

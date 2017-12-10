@@ -1,14 +1,17 @@
 package edu.ucsb.cs.cs184.pickyourpizza.pickyourpizza;
 
 import android.content.Context;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -57,6 +60,9 @@ public class CheeseSelectionFragment extends Fragment {
         adapterImage.setSelectedCheeses(selectedCheeses);
         adapterImage.notifyDataSetChanged();
 
+        TextView textView = (TextView)rootView.findViewById(R.id.gridviewTextView);
+        textView.setText("Cheese Toppings:");
+
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -86,6 +92,11 @@ public class CheeseSelectionFragment extends Fragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //BuildPizzaDialog dialog = BuildPizzaDialog.instantiate(getActivity(), "Hello world");
+                BuildPizzaDialog dialog;
+                dialog = new BuildPizzaDialog();
+                dialog.show(getFragmentManager(), "dialog");
+
                 // MAKE THIS CREATE THE PIZZA. GO TO LISTVIEW FRAGMENT.
                 // activityCallback.changeFragment("SauceSelectionFragment");
             }

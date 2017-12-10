@@ -51,7 +51,6 @@ public class StyleImageAdapter extends BaseAdapter {
 
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
-        Log.i("hello", "getView called");
         View myView;
 
         LayoutInflater li = ((Activity) mContext).getLayoutInflater();
@@ -64,6 +63,8 @@ public class StyleImageAdapter extends BaseAdapter {
 
         if(selectedPosition == position) {
             imageView.setBackgroundColor(Color.BLUE);
+            Log.i("Style Adapter: ", "Background Blue");
+
         } else {
             imageView.setBackgroundColor(Color.TRANSPARENT);
         }
