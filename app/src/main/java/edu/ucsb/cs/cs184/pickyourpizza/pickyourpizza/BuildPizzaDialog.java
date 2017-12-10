@@ -18,7 +18,7 @@ public class BuildPizzaDialog extends DialogFragment{
     boolean isNOO = false;
 
     public interface FragmentHelper {
-        public void changeFragment(String fragment);
+        public void changeFragment(String newFragment);
     }
 
     @Nullable
