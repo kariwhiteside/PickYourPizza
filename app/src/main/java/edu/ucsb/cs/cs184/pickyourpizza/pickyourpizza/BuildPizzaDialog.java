@@ -1,5 +1,6 @@
 package edu.ucsb.cs.cs184.pickyourpizza.pickyourpizza;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -14,11 +15,21 @@ import android.widget.Button;
 
 public class BuildPizzaDialog extends DialogFragment{
     View view;
-    CheeseSelectionFragment.FragmentHelper activityCallback;
+    FragmentHelper activityCallback;
     boolean isNOO = false;
 
     public interface FragmentHelper {
         public void changeFragment(String newFragment);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            activityCallback = (FragmentHelper)context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement FragmentHelper");
+        }
     }
 
     @Nullable
@@ -30,6 +41,7 @@ public class BuildPizzaDialog extends DialogFragment{
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                getDialog().dismiss();
                 activityCallback.changeFragment("ListViewFragment");
             }
         });
