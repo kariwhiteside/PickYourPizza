@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -22,7 +23,24 @@ public class ListViewFragment extends Fragment {
 
     View view;
 
+    FragmentHelper activityCallback;
+
+    public interface FragmentHelper {
+        public void changeFragment(String newFragment, boolean forward);
+        public void clearSelections();
+    }
+
     private ArrayList<PizzaPlace> pizzaPlaces;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            activityCallback = (FragmentHelper)context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement FragmentHelper");
+        }
+    }
 
     @Nullable
     @Override
@@ -50,6 +68,24 @@ public class ListViewFragment extends Fragment {
                 Toast.makeText(context, pizzaPlaces.get(i).getChain(), Toast.LENGTH_SHORT ).show();
             }
         });
+
+        Button modifyButton = (Button)view.findViewById(R.id.ModifyPizza);
+        modifyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activityCallback.changeFragment("NumPeopleFragment", false);
+            }
+        });
+
+        Button createNewPizzaButton = (Button)view.findViewById(R.id.CreateAnotherPizza);
+        createNewPizzaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activityCallback.clearSelections();
+                activityCallback.changeFragment("NumPeopleFragment", false);
+            }
+        });
+
 
         return view;
     }

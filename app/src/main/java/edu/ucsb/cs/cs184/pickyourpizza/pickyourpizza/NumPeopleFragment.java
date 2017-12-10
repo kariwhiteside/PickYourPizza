@@ -22,8 +22,11 @@ public class NumPeopleFragment extends Fragment {
     View view;
     FragmentHelper activityCallback;
 
+    int numPeople;
+
     public interface FragmentHelper {
-        public void changeFragment(String newFragment);
+        public void changeFragment(String newFragment, boolean forward);
+        public void setNumPeople(int numPeople);
     }
 
     @Override
@@ -49,6 +52,7 @@ public class NumPeopleFragment extends Fragment {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 int prog = progress + 1;
+                numPeople = prog;
                 numberTextView.setText("" + prog);
                 String fileName;
                 if (prog < 10) {
@@ -76,7 +80,8 @@ public class NumPeopleFragment extends Fragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activityCallback.changeFragment("StyleSelectionFragment");
+                activityCallback.changeFragment("StyleSelectionFragment", true);
+                activityCallback.setNumPeople(numPeople);
             }
         });
 

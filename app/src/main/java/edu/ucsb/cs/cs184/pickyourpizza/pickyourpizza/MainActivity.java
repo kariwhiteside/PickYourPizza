@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements CheeseSelectionFragment.FragmentHelper,
         NumPeopleFragment.FragmentHelper, StartPageFragment.FragmentHelper, MeatSelectionFragment.FragmentHelper,
         SauceSelectionFragment.FragmentHelper, StyleSelectionFragment.FragmentHelper, VeggieSelectionFragment.FragmentHelper,
-        BuildPizzaDialog.FragmentHelper
+        BuildPizzaDialog.FragmentHelper, ListViewFragment.FragmentHelper
 {
 
     FragmentManager fragmentManager = getSupportFragmentManager();
@@ -51,6 +51,9 @@ public class MainActivity extends AppCompatActivity implements CheeseSelectionFr
     ArrayList<Integer> selectedCheesesPositions = new ArrayList<>();
     ArrayList<String> selectedCheeses = new ArrayList<>();
 
+    // Number of People
+    int numPeople;
+
 
     public DatabaseReference dBRef;
     public ArrayList<PizzaPlaceInfo> businessList;
@@ -78,47 +81,109 @@ public class MainActivity extends AppCompatActivity implements CheeseSelectionFr
     }
 
     @Override
-    public void changeFragment(String newFragment) {
+    public void changeFragment(String newFragment, boolean forward) {
         switch (newFragment) {
             case "NumPeopleFragment":
-                fragmentManager.beginTransaction()
-                        .replace(R.id.fragmentContainer, numPeopleFragment)
-                        .commit();
+                if(forward) {
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
+                            .replace(R.id.fragmentContainer, numPeopleFragment)
+                            .commit();
+                }
+                else
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right)
+                            .replace(R.id.fragmentContainer, numPeopleFragment)
+                            .commit();
                 break;
             case "StyleSelectionFragment":
                 styleSelectionFragment.setSelectedPositionAndStyle(selectedStylePosition, selectedStyle);
-                fragmentManager.beginTransaction()
-                        .replace(R.id.fragmentContainer, styleSelectionFragment)
-                        .commit();
+                if(forward) {
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
+                            .replace(R.id.fragmentContainer, styleSelectionFragment)
+                            .commit();
+                }
+                else{
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right)
+                            .replace(R.id.fragmentContainer, styleSelectionFragment)
+                            .commit();
+                }
                 break;
             case "SauceSelectionFragment":
                 sauceSelectionFragment.setSelectedPositionAndSauce(selectedSaucePosition, selectedSauce);
-                fragmentManager.beginTransaction()
-                        .replace(R.id.fragmentContainer, sauceSelectionFragment)
-                        .commit();
+                if(forward) {
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
+                            .replace(R.id.fragmentContainer, sauceSelectionFragment)
+                            .commit();
+                }
+                else{
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right)
+                            .replace(R.id.fragmentContainer, sauceSelectionFragment)
+                            .commit();
+                }
                 break;
             case "CheeseSelectionFragment":
                 cheeseSelectionFragment.setSelectedPositionsAndCheeses(selectedCheesesPositions, selectedCheeses);
-                fragmentManager.beginTransaction()
-                        .replace(R.id.fragmentContainer, cheeseSelectionFragment)
-                        .commit();
+                if(forward) {
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
+                            .replace(R.id.fragmentContainer, cheeseSelectionFragment)
+                            .commit();
+                }
+                else{
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right)
+                            .replace(R.id.fragmentContainer, cheeseSelectionFragment)
+                            .commit();
+                }
                 break;
             case "VeggieSelectionFragment":
                 veggieSelectionFragment.setSelectedPositionsAndVeggies(selectedVeggiesPositions, selectedVeggies);
-                fragmentManager.beginTransaction()
-                        .replace(R.id.fragmentContainer, veggieSelectionFragment)
-                        .commit();
+                if(forward) {
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
+                            .replace(R.id.fragmentContainer, veggieSelectionFragment)
+                            .commit();
+                }
+                else{
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right)
+                            .replace(R.id.fragmentContainer, veggieSelectionFragment)
+                            .commit();
+                }
                 break;
             case "MeatSelectionFragment":
                 meatSelectionFragment.setSelectedPositionsAndMeats(selectedMeatsPositions, selectedMeats);
-                fragmentManager.beginTransaction()
-                        .replace(R.id.fragmentContainer, meatSelectionFragment)
-                        .commit();
+                if(forward) {
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
+                            .replace(R.id.fragmentContainer, meatSelectionFragment)
+                            .commit();
+                }
+                else {
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right)
+                            .replace(R.id.fragmentContainer, meatSelectionFragment)
+                            .commit();
+                }
                 break;
             case "ListViewFragment":
-                fragmentManager.beginTransaction()
-                        .replace(R.id.fragmentContainer, listViewFragment)
-                        .commit();
+                if(forward) {
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
+                            .replace(R.id.fragmentContainer, listViewFragment)
+                            .commit();
+                }
+                else{
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right)
+                            .replace(R.id.fragmentContainer, listViewFragment)
+                            .commit();
+                }
                 break;
 
         }
@@ -152,5 +217,39 @@ public class MainActivity extends AppCompatActivity implements CheeseSelectionFr
     public void setSelectedPositionsAndCheeses(ArrayList<Integer> positions, ArrayList<String> cheeses) {
         selectedCheesesPositions = positions;
         selectedCheeses = cheeses;
+    }
+
+    @Override
+    public void setNumPeople(int numPeople) {
+        this.numPeople = numPeople;
+    }
+
+    @Override
+    public void clearSelections() {
+
+        // Style
+        selectedStylePosition = 0;
+        selectedStyle = "";
+
+        // Sauce
+        selectedSaucePosition = 0;
+        selectedSauce = "";
+
+        // Veggies
+        selectedVeggiesPositions.clear();
+        selectedVeggies.clear();
+
+        // Meats
+        selectedMeatsPositions.clear();
+        selectedMeats.clear();
+
+        // Cheeses
+        selectedCheesesPositions.clear();
+        selectedCheeses.clear();
+
+        // Number of People
+        numPeople = 1;
+        numPeopleFragment = new NumPeopleFragment();
+
     }
 }
