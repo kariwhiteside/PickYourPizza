@@ -7,6 +7,7 @@ package edu.ucsb.cs.cs184.pickyourpizza.pickyourpizza;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,8 @@ public class StyleImageAdapter extends BaseAdapter {
 
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
+        Log.i("Style Adapter: ", "Get View Called");
+
         View myView;
 
         LayoutInflater li = ((Activity) mContext).getLayoutInflater();
@@ -67,6 +70,8 @@ public class StyleImageAdapter extends BaseAdapter {
 
         if(selectedPosition == position) {
             imageView.setBackgroundColor(Color.BLUE);
+            Log.i("Style Adapter: ", "Background Blue");
+
         } else {
             imageView.setBackgroundColor(Color.TRANSPARENT);
         }
