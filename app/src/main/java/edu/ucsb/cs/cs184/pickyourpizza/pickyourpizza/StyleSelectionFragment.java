@@ -3,12 +3,14 @@ package edu.ucsb.cs.cs184.pickyourpizza.pickyourpizza;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
 
 /**
  * Created by joesong on 12/4/17.
@@ -44,12 +46,18 @@ public class StyleSelectionFragment extends Fragment {
         GridView gridView = rootView.findViewById(R.id.gridview);
         final StyleImageAdapter adapterImage = new StyleImageAdapter(getActivity());
         gridView.setAdapter(adapterImage);
+        Log.i("StyleFragment: ", "adapter set");
+
+
+        TextView textView = (TextView)rootView.findViewById(R.id.gridviewTextView);
+        textView.setText("Style:");
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 adapterImage.setSelectedPositions(i);
                 adapterImage.notifyDataSetChanged();
+                Log.i("StyleFragment: ", "clicked item");
             }
         });
 
@@ -75,8 +83,6 @@ public class StyleSelectionFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
-
-
     }
 
 }

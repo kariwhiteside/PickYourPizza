@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
 
 /**
  * Created by joesong on 12/4/17.
@@ -44,6 +45,9 @@ public class MeatSelectionFragment extends Fragment {
         GridView gridView = rootView.findViewById(R.id.gridview);
         final MeatImageAdapter adapterImage = new MeatImageAdapter(getActivity());
         gridView.setAdapter(adapterImage);
+
+        TextView textView = (TextView)rootView.findViewById(R.id.gridviewTextView);
+        textView.setText("Meat Toppings:");
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
