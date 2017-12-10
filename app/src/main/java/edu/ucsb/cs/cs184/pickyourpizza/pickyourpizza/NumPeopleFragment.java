@@ -23,7 +23,7 @@ public class NumPeopleFragment extends Fragment {
     FragmentHelper activityCallback;
 
     public interface FragmentHelper {
-        public void changeFragment(String fragment);
+        public void changeFragment(String newFragment);
     }
 
     @Override

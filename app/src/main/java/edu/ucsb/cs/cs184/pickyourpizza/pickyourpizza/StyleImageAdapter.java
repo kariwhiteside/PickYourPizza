@@ -7,6 +7,7 @@ package edu.ucsb.cs.cs184.pickyourpizza.pickyourpizza;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,20 +21,20 @@ import java.util.Arrays;
 
 public class StyleImageAdapter extends BaseAdapter {
     private Context mContext;
+
     private int selectedPosition = -1;
     private String selectedStyle = "";
+
     // references to our images
     private ArrayList<Integer> styleImages = new ArrayList<Integer>();
     private ArrayList<String> styleNames = new ArrayList<String>();
 
     public StyleImageAdapter(Context c) {
         mContext = c;
-        styleImages.addAll(Arrays.asList(R.drawable.glutenfreecrust, R.drawable.panpizza,
-                R.drawable.thincrust, R.drawable.wheatcrust,
-                R.drawable.whitecrust));
-        styleNames.addAll(Arrays.asList("Gluten Free Crust", "Pan Pizza",
-                "Thin Crust", "Wheat Crust",
-                "White Crust"));
+        styleImages.addAll(Arrays.asList(R.drawable.whitecrust, R.drawable.panpizza,
+                R.drawable.thincrust, R.drawable.wheatcrust, R.drawable.glutenfreecrust));
+        styleNames.addAll(Arrays.asList("White Crust", "Pan Pizza",
+                "Thin Crust", "Wheat Crust", "Gluten Free Crust"));
     }
 
     public int getCount() {
@@ -48,13 +49,9 @@ public class StyleImageAdapter extends BaseAdapter {
         return 0;
     }
 
-    public void setSelectedPositions(int position){
-        selectedPosition = position;
-        selectedStyle = styleNames.get(position);
-    }
-
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
+        Log.i("hello", "getView called");
         View myView;
 
         LayoutInflater li = ((Activity) mContext).getLayoutInflater();
@@ -71,5 +68,22 @@ public class StyleImageAdapter extends BaseAdapter {
             imageView.setBackgroundColor(Color.TRANSPARENT);
         }
         return myView;
+    }
+
+    public int getSelectedPosition() {
+        return selectedPosition;
+    }
+
+    public void setSelectedPositions(int position){
+        selectedPosition = position;
+        selectedStyle = styleNames.get(position);
+    }
+
+    public String getSelectedStyle() {
+        return selectedStyle;
+    }
+
+    public void setSelectedStyle(String style) {
+        selectedStyle = style;
     }
 }

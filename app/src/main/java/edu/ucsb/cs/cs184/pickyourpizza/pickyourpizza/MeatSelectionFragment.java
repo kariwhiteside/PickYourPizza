@@ -10,6 +10,8 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 
+import java.util.ArrayList;
+
 /**
  * Created by joesong on 12/4/17.
  */
@@ -19,8 +21,14 @@ public class MeatSelectionFragment extends Fragment {
     View rootView;
     FragmentHelper activityCallback;
 
+    MeatImageAdapter adapterImage;
+    ArrayList<Integer> selectedPositions = new ArrayList<>();
+    ArrayList<String> selectedMeats = new ArrayList<>();
+
     public interface FragmentHelper {
-        public void changeFragment(String fragment);
+        public void changeFragment(String newFragment);
+        public void setSelectedPositionsAndMeats(ArrayList<Integer> positions, ArrayList<String> meats);
+
     }
 
     @Override
@@ -42,14 +50,28 @@ public class MeatSelectionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.gridview_fragment, container, false);
         GridView gridView = rootView.findViewById(R.id.gridview);
-        final MeatImageAdapter adapterImage = new MeatImageAdapter(getActivity());
+        adapterImage = new MeatImageAdapter(getActivity());
         gridView.setAdapter(adapterImage);
+
+        // set selectedPositions in gridView adapter
+        adapterImage.setSelectedPositions(selectedPositions);
+        adapterImage.setSelectedMeats(selectedMeats);
+        adapterImage.notifyDataSetChanged();
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                // set selectedPosition in gridView adapter
                 adapterImage.setSelectedPositions(i);
                 adapterImage.notifyDataSetChanged();
+
+                // set member variables selectedPositions and selectedVeggies
+                selectedPositions = adapterImage.getSelectedPositions();
+                selectedMeats = adapterImage.getSelectedMeats();
+
+                // set the selectedVeggiesPositions and selectedVeggies in the MainActivity
+                activityCallback.setSelectedPositionsAndMeats(selectedPositions, selectedMeats);
             }
         });
 
@@ -75,7 +97,19 @@ public class MeatSelectionFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
+    }
 
+    public void setSelectedPositionsAndMeats(ArrayList<Integer> positions, ArrayList<String> meats) {
+
+        // set member variables
+        selectedPositions = positions;
+        selectedMeats = meats;
+
+        // set adapter variables
+        adapterImage = new MeatImageAdapter(getActivity());
+        adapterImage.setSelectedPositions(positions);
+        adapterImage.setSelectedMeats(meats);
+        adapterImage.notifyDataSetChanged();
 
     }
 

@@ -19,8 +19,13 @@ public class SauceSelectionFragment extends Fragment {
     View rootView;
     FragmentHelper activityCallback;
 
+    SauceImageAdapter adapterImage;
+    int selectedPosition;
+    String selectedSauce;
+
     public interface FragmentHelper {
-        public void changeFragment(String fragment);
+        public void changeFragment(String newFragment);
+        public void setSelectedPositionAndSauce(int position, String sauce);
     }
 
     @Override
@@ -42,14 +47,27 @@ public class SauceSelectionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.gridview_fragment, container, false);
         GridView gridView = rootView.findViewById(R.id.gridview);
-        final SauceImageAdapter adapterImage = new SauceImageAdapter(getActivity());
+        adapterImage = new SauceImageAdapter(getActivity());
         gridView.setAdapter(adapterImage);
+
+        // set selectedPosition in gridView adapter
+        adapterImage.setSelectedPositions(selectedPosition);
+        adapterImage.notifyDataSetChanged();
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                // set selectedPosition in gridView adapter
                 adapterImage.setSelectedPositions(i);
                 adapterImage.notifyDataSetChanged();
+
+                // set member variables selectedPosition and selectedSauce
+                selectedPosition = i;
+                selectedSauce = adapterImage.getSelectedSauce();
+
+                // set the selectedStylePosition and selectedStyle in the MainActivity
+                activityCallback.setSelectedPositionAndSauce(selectedPosition, selectedSauce);
             }
         });
 
@@ -75,7 +93,18 @@ public class SauceSelectionFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
+    }
 
+    public void setSelectedPositionAndSauce(int position, String sauce) {
+
+        // set member variables
+        selectedPosition = position;
+        selectedSauce = sauce;
+
+        // set adapter variables
+        adapterImage = new SauceImageAdapter(getActivity());
+        adapterImage.setSelectedPositions(position);
+        adapterImage.notifyDataSetChanged();
 
     }
 
