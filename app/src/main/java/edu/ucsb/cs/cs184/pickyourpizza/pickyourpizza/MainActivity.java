@@ -15,7 +15,9 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements CheeseSelectionFragment.FragmentHelper,
         NumPeopleFragment.FragmentHelper, StartPageFragment.FragmentHelper, MeatSelectionFragment.FragmentHelper,
-        SauceSelectionFragment.FragmentHelper, StyleSelectionFragment.FragmentHelper, VeggieSelectionFragment.FragmentHelper {
+        SauceSelectionFragment.FragmentHelper, StyleSelectionFragment.FragmentHelper, VeggieSelectionFragment.FragmentHelper,
+        BuildPizzaDialog.FragmentHelper
+{
 
     FragmentManager fragmentManager = getSupportFragmentManager();
     StartPageFragment startPageFragment = new StartPageFragment();
