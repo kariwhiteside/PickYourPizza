@@ -23,7 +23,7 @@ public class NumPeopleFragment extends Fragment {
     FragmentHelper activityCallback;
 
     public interface FragmentHelper {
-        public void changeFragment(String newFragment);
+        public void changeFragment(String newFragment, boolean forward);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class NumPeopleFragment extends Fragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activityCallback.changeFragment("StyleSelectionFragment");
+                activityCallback.changeFragment("StyleSelectionFragment", true);
             }
         });
 

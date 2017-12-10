@@ -19,7 +19,7 @@ public class BuildPizzaDialog extends DialogFragment{
     boolean isNOO = false;
 
     public interface FragmentHelper {
-        public void changeFragment(String newFragment);
+        public void changeFragment(String newFragment, boolean forward);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class BuildPizzaDialog extends DialogFragment{
             @Override
             public void onClick(View view) {
                 getDialog().dismiss();
-                activityCallback.changeFragment("ListViewFragment");
+                activityCallback.changeFragment("ListViewFragment", true);
             }
         });
 

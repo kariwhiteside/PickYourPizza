@@ -38,18 +38,39 @@
         android:dividerHeight="1dp"
         android:headerDividersEnabled="true"></ListView>
 
-    <Button
-        android:id="@+id/button5"
-        style="@android:style/Widget.Material.Light.Button.Inset"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="10dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:fontFamily="sans-serif-condensed"
-        android:text="Create Another Pizza!"
-        android:textAllCaps="false"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/ModifyPizza"
+            style="@android:style/Widget.Material.Light.Button.Inset"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Modify Pizza"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/CreateAnotherPizza"
+            style="@android:style/Widget.Material.Light.Button.Inset"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Create Another Pizza!"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
 </LinearLayout>

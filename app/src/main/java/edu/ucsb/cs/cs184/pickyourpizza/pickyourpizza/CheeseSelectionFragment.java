@@ -29,7 +29,7 @@ public class CheeseSelectionFragment extends Fragment {
     ArrayList<String> selectedCheeses = new ArrayList<>();
 
     public interface FragmentHelper {
-        public void changeFragment(String newFragment);
+        public void changeFragment(String newFragment, boolean forward);
         public void setSelectedPositionsAndCheeses(ArrayList<Integer> positions, ArrayList<String> cheeses);
     }
 
@@ -84,7 +84,7 @@ public class CheeseSelectionFragment extends Fragment {
         prevButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activityCallback.changeFragment("MeatSelectionFragment");
+                activityCallback.changeFragment("MeatSelectionFragment", false);
             }
         });
 

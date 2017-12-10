@@ -25,7 +25,7 @@ public class SauceSelectionFragment extends Fragment {
     String selectedSauce;
 
     public interface FragmentHelper {
-        public void changeFragment(String newFragment);
+        public void changeFragment(String newFragment, boolean forward);
         public void setSelectedPositionAndSauce(int position, String sauce);
     }
 
@@ -79,7 +79,7 @@ public class SauceSelectionFragment extends Fragment {
         prevButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activityCallback.changeFragment("StyleSelectionFragment");
+                activityCallback.changeFragment("StyleSelectionFragment", false);
             }
         });
 
@@ -87,7 +87,7 @@ public class SauceSelectionFragment extends Fragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activityCallback.changeFragment("VeggieSelectionFragment");
+                activityCallback.changeFragment("VeggieSelectionFragment", true);
             }
         });
 

@@ -21,7 +21,7 @@ public class StartPageFragment extends Fragment {
     public static FragmentHelper activityCallback;
 
     public interface FragmentHelper {
-        public void changeFragment(String newFragment);
+        public void changeFragment(String newFragment, boolean forward);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class StartPageFragment extends Fragment {
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activityCallback.changeFragment("NumPeopleFragment");
+                activityCallback.changeFragment("NumPeopleFragment", true);
             }
         });
 

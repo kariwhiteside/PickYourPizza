@@ -29,7 +29,7 @@ public class StyleSelectionFragment extends Fragment {
     String selectedStyle;
 
     public interface FragmentHelper {
-        public void changeFragment(String newFragment);
+        public void changeFragment(String newFragment, boolean forward);
         public void setSelectedPositionAndStyle(int position, String style);
     }
 
@@ -86,7 +86,7 @@ public class StyleSelectionFragment extends Fragment {
         prevButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activityCallback.changeFragment("NumPeopleFragment");
+                activityCallback.changeFragment("NumPeopleFragment", false);
             }
         });
 
@@ -94,7 +94,7 @@ public class StyleSelectionFragment extends Fragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activityCallback.changeFragment("SauceSelectionFragment");
+                activityCallback.changeFragment("SauceSelectionFragment", true);
             }
         });
 
