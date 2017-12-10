@@ -3,6 +3,7 @@ package edu.ucsb.cs.cs184.pickyourpizza.pickyourpizza;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -19,6 +21,7 @@ import java.util.Arrays;
 
 public class VeggieImageAdapter extends BaseAdapter {
     private Context mContext;
+
     private ArrayList<Integer> selectedPositions = new ArrayList<>();
     private ArrayList<String> selectedVeggies = new ArrayList<>();
 
@@ -65,17 +68,6 @@ public class VeggieImageAdapter extends BaseAdapter {
         return 0;
     }
 
-    public void setSelectedPositions(int position){
-        if(selectedPositions.contains(position)){
-            selectedPositions.remove(Integer.valueOf(position));
-            selectedVeggies.remove(veggieNames.get(position));
-        }
-        else {
-            selectedPositions.add(position);
-            selectedVeggies.add(veggieNames.get(position));
-        }
-    }
-
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
         View myView;
@@ -94,5 +86,33 @@ public class VeggieImageAdapter extends BaseAdapter {
             imageView.setBackgroundColor(Color.TRANSPARENT);
         }
         return myView;
+    }
+
+    public ArrayList<Integer> getSelectedPositions() {
+        return selectedPositions;
+    }
+
+    public void setSelectedPositions(int position){
+
+        if(selectedPositions.contains(position)){
+            selectedPositions.remove(Integer.valueOf(position));
+            selectedVeggies.remove(veggieNames.get(position));
+        }
+        else {
+            selectedPositions.add(position);
+            selectedVeggies.add(veggieNames.get(position));
+        }
+    }
+
+    public void setSelectedPositions(ArrayList<Integer> positions) {
+        selectedPositions = positions;
+    }
+
+    public ArrayList<String> getSelectedVeggies() {
+        return selectedVeggies;
+    }
+
+    public void setSelectedVeggies(ArrayList<String> names){
+        selectedVeggies = names;
     }
 }

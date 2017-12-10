@@ -19,6 +19,7 @@ import java.util.Arrays;
 
 public class SauceImageAdapter extends BaseAdapter {
     private Context mContext;
+
     private int selectedPosition = -1;
     private String selectedSauce = "";
 
@@ -28,12 +29,12 @@ public class SauceImageAdapter extends BaseAdapter {
 
     public SauceImageAdapter(Context c) {
         mContext = c;
-        sauceImages.addAll(Arrays.asList(R.drawable.barbequesauce, R.drawable.creamygarlicsauce,
-                R.drawable.creamysriracha, R.drawable.marinarasauce,
+        sauceImages.addAll(Arrays.asList(R.drawable.marinarasauce, R.drawable.barbequesauce,
+                R.drawable.creamygarlicsauce, R.drawable.creamysriracha,
                 R.drawable.pestosauce, R.drawable.ranchsauce,
                 R.drawable.southernchipotlesauce, R.drawable.spinachalfredosauce));
-        sauceNames.addAll(Arrays.asList("Barbeque Sauce", "Creamy Garlic Sauce",
-                "Creamy Sriracha", "Marinara Sauce",
+        sauceNames.addAll(Arrays.asList("Marinara Sauce", "Barbeque Sauce",
+                "Creamy Garlic Sauce", "Creamy Sriracha",
                 "Pesto Sauce", "Ranch Sauce",
                 "Southern Chipotle Sauce",
                 "Spinach Alfredo Sauce"));
@@ -49,12 +50,6 @@ public class SauceImageAdapter extends BaseAdapter {
 
     public long getItemId(int position) {
         return 0;
-    }
-
-    public void setSelectedPositions(int position){
-        selectedPosition = position;
-        selectedSauce = sauceNames.get(position);
-
     }
 
     // create a new ImageView for each item referenced by the Adapter
@@ -75,5 +70,22 @@ public class SauceImageAdapter extends BaseAdapter {
             imageView.setBackgroundColor(Color.TRANSPARENT);
         }
         return myView;
+    }
+
+    public int getSelectedPosition() {
+        return selectedPosition;
+    }
+
+    public void setSelectedPositions(int position){
+        selectedPosition = position;
+        selectedSauce = sauceNames.get(position);
+    }
+
+    public String getSelectedSauce() {
+        return selectedSauce;
+    }
+
+    public void setSelectedStyle(String sauce) {
+        selectedSauce = sauce;
     }
 }

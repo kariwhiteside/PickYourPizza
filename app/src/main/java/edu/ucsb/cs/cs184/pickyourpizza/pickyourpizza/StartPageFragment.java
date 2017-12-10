@@ -21,7 +21,7 @@ public class StartPageFragment extends Fragment {
     public static FragmentHelper activityCallback;
 
     public interface FragmentHelper {
-        public void changeFragment(String fragment);
+        public void changeFragment(String newFragment);
     }
 
     @Override

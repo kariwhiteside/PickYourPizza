@@ -17,8 +17,9 @@ import java.util.Arrays;
  * Created by joesong on 12/4/17.
  */
 
-public class CheeseImageAdapter extends BaseAdapter{
+public class CheeseImageAdapter extends BaseAdapter {
     private Context mContext;
+
     private ArrayList<Integer> selectedPositions = new ArrayList<>();
     private ArrayList<String> selectedCheeses = new ArrayList<>();
 
@@ -50,17 +51,6 @@ public class CheeseImageAdapter extends BaseAdapter{
         return 0;
     }
 
-    public void setSelectedPositions(int position){
-        if(selectedPositions.contains(position)){
-            selectedPositions.remove(Integer.valueOf(position));
-            selectedCheeses.remove(cheeseNames.get(position));
-        }
-        else {
-            selectedPositions.add(position);
-            selectedCheeses.add(cheeseNames.get(position));
-        }
-    }
-
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
         View myView;
@@ -79,6 +69,33 @@ public class CheeseImageAdapter extends BaseAdapter{
             imageView.setBackgroundColor(Color.TRANSPARENT);
         }
         return myView;
+    }
+
+    public ArrayList<Integer> getSelectedPositions() {
+        return selectedPositions;
+    }
+
+    public void setSelectedPositions(int position){
+        if(selectedPositions.contains(position)){
+            selectedPositions.remove(Integer.valueOf(position));
+            selectedCheeses.remove(cheeseNames.get(position));
+        }
+        else {
+            selectedPositions.add(position);
+            selectedCheeses.add(cheeseNames.get(position));
+        }
+    }
+
+    public void setSelectedPositions(ArrayList<Integer> positions) {
+        selectedPositions = positions;
+    }
+
+    public ArrayList<String> getSelectedCheeses() {
+        return selectedCheeses;
+    }
+
+    public void setSelectedCheeses(ArrayList<String> names){
+        selectedCheeses = names;
     }
 
 }

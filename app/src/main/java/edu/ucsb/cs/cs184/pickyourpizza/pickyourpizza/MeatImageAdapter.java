@@ -20,6 +20,7 @@ import java.util.Arrays;
 
 public class MeatImageAdapter extends BaseAdapter {
     private Context mContext;
+
     private ArrayList<Integer> selectedPositions = new ArrayList<>();
     private ArrayList<String> selectedMeats = new ArrayList<>();
 
@@ -29,18 +30,16 @@ public class MeatImageAdapter extends BaseAdapter {
 
     public MeatImageAdapter(Context c) {
         mContext = c;
-        meatImages.addAll(Arrays.asList(R.drawable.anchovies, R.drawable.bacon,
+        meatImages.addAll(Arrays.asList(R.drawable.pepperoni, R.drawable.sausage,
+                R.drawable.italiansausage, R.drawable.anchovies, R.drawable.bacon,
                 R.drawable.barbequechicken, R.drawable.beef,
                 R.drawable.canadianbacon, R.drawable.chorizo,
-                R.drawable.garlicclams, R.drawable.grilledchicken,
-                R.drawable.italiansausage, R.drawable.meatballs,
-                R.drawable.pastrami, R.drawable.pepperoni,
-                R.drawable.salami, R.drawable.sausage));
-        meatNames.addAll(Arrays.asList("Anchovies", "Bacon", "Barbecue Chicken",
-                "Beef", "Canadian Bacon", "Chorizo",
-                "Garlic Clams", "Grilled Chicken",
-                "Italian Sausage", "Meatballs", "Pastrami",
-                "Pepperoni", "Salami", "Sausage"));
+                R.drawable.garlicclams, R.drawable.grilledchicken, R.drawable.meatballs,
+                R.drawable.pastrami,
+                R.drawable.salami));
+        meatNames.addAll(Arrays.asList("Pepperoni", "Sausage", "Italian Sausage",
+                "Anchovies", "Bacon", "Barbecue Chicken", "Beef", "Canadian Bacon", "Chorizo",
+                "Garlic Clams", "Grilled Chicken", "Meatballs", "Pastrami", "Salami"));
     }
 
     public int getCount() {
@@ -53,17 +52,6 @@ public class MeatImageAdapter extends BaseAdapter {
 
     public long getItemId(int position) {
         return 0;
-    }
-
-    public void setSelectedPositions(int position){
-        if(selectedPositions.contains(position)){
-            selectedPositions.remove(Integer.valueOf(position));
-            selectedMeats.add(meatNames.get(position));
-        }
-        else {
-            selectedPositions.add(position);
-            selectedMeats.remove(meatNames.get(position));
-        }
     }
 
     // create a new ImageView for each item referenced by the Adapter
@@ -84,6 +72,33 @@ public class MeatImageAdapter extends BaseAdapter {
             imageView.setBackgroundColor(Color.TRANSPARENT);
         }
         return myView;
+    }
+
+    public ArrayList<Integer> getSelectedPositions() {
+        return selectedPositions;
+    }
+
+    public void setSelectedPositions(int position){
+        if(selectedPositions.contains(position)){
+            selectedPositions.remove(Integer.valueOf(position));
+            selectedMeats.add(meatNames.get(position));
+        }
+        else {
+            selectedPositions.add(position);
+            selectedMeats.remove(meatNames.get(position));
+        }
+    }
+
+    public void setSelectedPositions(ArrayList<Integer> positions) {
+        selectedPositions = positions;
+    }
+
+    public ArrayList<String> getSelectedMeats() {
+        return selectedMeats;
+    }
+
+    public void setSelectedMeats(ArrayList<String> names) {
+        selectedMeats = names;
     }
 
 }

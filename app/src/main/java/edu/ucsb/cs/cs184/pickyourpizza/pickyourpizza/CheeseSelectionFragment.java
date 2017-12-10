@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 /**
  * Created by joesong on 12/4/17.
  */
@@ -22,8 +24,13 @@ public class CheeseSelectionFragment extends Fragment {
     View rootView;
     FragmentHelper activityCallback;
 
+    CheeseImageAdapter adapterImage;
+    ArrayList<Integer> selectedPositions = new ArrayList<>();
+    ArrayList<String> selectedCheeses = new ArrayList<>();
+
     public interface FragmentHelper {
-        public void changeFragment(String fragment);
+        public void changeFragment(String newFragment);
+        public void setSelectedPositionsAndCheeses(ArrayList<Integer> positions, ArrayList<String> cheeses);
     }
 
     @Override
@@ -45,8 +52,13 @@ public class CheeseSelectionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.gridview_fragment, container, false);
         GridView gridView = rootView.findViewById(R.id.gridview);
-        final CheeseImageAdapter adapterImage = new CheeseImageAdapter(getActivity());
+        adapterImage = new CheeseImageAdapter(getActivity());
         gridView.setAdapter(adapterImage);
+
+        // set selectedPositions in gridView adapter
+        adapterImage.setSelectedPositions(selectedPositions);
+        adapterImage.setSelectedCheeses(selectedCheeses);
+        adapterImage.notifyDataSetChanged();
 
         TextView textView = (TextView)rootView.findViewById(R.id.gridviewTextView);
         textView.setText("Cheese Toppings:");
@@ -54,8 +66,17 @@ public class CheeseSelectionFragment extends Fragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                // set selectedPosition in gridView adapter
                 adapterImage.setSelectedPositions(i);
                 adapterImage.notifyDataSetChanged();
+
+                // set member variables selectedPositions and selectedVeggies
+                selectedPositions = adapterImage.getSelectedPositions();
+                selectedCheeses = adapterImage.getSelectedCheeses();
+
+                // set the selectedVeggiesPositions and selectedVeggies in the MainActivity
+                activityCallback.setSelectedPositionsAndCheeses(selectedPositions, selectedCheeses);
             }
         });
 
@@ -87,7 +108,19 @@ public class CheeseSelectionFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
+    }
 
+    public void setSelectedPositionsAndCheeses(ArrayList<Integer> positions, ArrayList<String> cheeses) {
+
+        // set member variables
+        selectedPositions = positions;
+        selectedCheeses = cheeses;
+
+        // set adapter variables
+        adapterImage = new CheeseImageAdapter(getActivity());
+        adapterImage.setSelectedPositions(positions);
+        adapterImage.setSelectedCheeses(cheeses);
+        adapterImage.notifyDataSetChanged();
 
     }
 
