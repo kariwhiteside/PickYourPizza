@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements CheeseSelectionFragment.FragmentHelper,
         NumPeopleFragment.FragmentHelper, StartPageFragment.FragmentHelper, MeatSelectionFragment.FragmentHelper,
         SauceSelectionFragment.FragmentHelper, StyleSelectionFragment.FragmentHelper, VeggieSelectionFragment.FragmentHelper,
-        BuildPizzaDialog.FragmentHelper
+        BuildPizzaDialog.FragmentHelper, ListViewFragment.FragmentHelper
 {
 
     FragmentManager fragmentManager = getSupportFragmentManager();
@@ -50,6 +50,9 @@ public class MainActivity extends AppCompatActivity implements CheeseSelectionFr
     // Cheeses
     ArrayList<Integer> selectedCheesesPositions = new ArrayList<>();
     ArrayList<String> selectedCheeses = new ArrayList<>();
+
+    // Number of People
+    int numPeople;
 
 
     public DatabaseReference dBRef;
@@ -214,5 +217,39 @@ public class MainActivity extends AppCompatActivity implements CheeseSelectionFr
     public void setSelectedPositionsAndCheeses(ArrayList<Integer> positions, ArrayList<String> cheeses) {
         selectedCheesesPositions = positions;
         selectedCheeses = cheeses;
+    }
+
+    @Override
+    public void setNumPeople(int numPeople) {
+        this.numPeople = numPeople;
+    }
+
+    @Override
+    public void clearSelections() {
+
+        // Style
+        selectedStylePosition = 0;
+        selectedStyle = "";
+
+        // Sauce
+        selectedSaucePosition = 0;
+        selectedSauce = "";
+
+        // Veggies
+        selectedVeggiesPositions.clear();
+        selectedVeggies.clear();
+
+        // Meats
+        selectedMeatsPositions.clear();
+        selectedMeats.clear();
+
+        // Cheeses
+        selectedCheesesPositions.clear();
+        selectedCheeses.clear();
+
+        // Number of People
+        numPeople = 1;
+        numPeopleFragment = new NumPeopleFragment();
+
     }
 }

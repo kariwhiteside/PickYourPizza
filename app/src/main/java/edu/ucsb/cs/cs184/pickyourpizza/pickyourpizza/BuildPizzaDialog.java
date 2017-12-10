@@ -16,7 +16,6 @@ import android.widget.Button;
 public class BuildPizzaDialog extends DialogFragment{
     View view;
     FragmentHelper activityCallback;
-    boolean isNOO = false;
 
     public interface FragmentHelper {
         public void changeFragment(String newFragment, boolean forward);
