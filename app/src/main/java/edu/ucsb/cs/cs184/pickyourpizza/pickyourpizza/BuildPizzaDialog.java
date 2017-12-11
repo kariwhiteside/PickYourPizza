@@ -19,6 +19,7 @@ public class BuildPizzaDialog extends DialogFragment{
 
     public interface FragmentHelper {
         public void changeFragment(String newFragment, boolean forward);
+        public void calculatePizza();
     }
 
     @Override
@@ -41,6 +42,7 @@ public class BuildPizzaDialog extends DialogFragment{
             @Override
             public void onClick(View view) {
                 getDialog().dismiss();
+                activityCallback.calculatePizza();
                 activityCallback.changeFragment("ListViewFragment", true);
             }
         });
