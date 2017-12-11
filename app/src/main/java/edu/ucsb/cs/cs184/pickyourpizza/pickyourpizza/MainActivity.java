@@ -54,6 +54,12 @@ public class MainActivity extends AppCompatActivity implements CheeseSelectionFr
     // Number of People
     int numPeople;
 
+    // Numbers of each size of pizza
+    int numXLarge;
+    int numLarge;
+    int numMedium;
+    int numSmall;
+
 
     public DatabaseReference dBRef;
     public ArrayList<PizzaPlaceInfo> businessList;
@@ -251,5 +257,33 @@ public class MainActivity extends AppCompatActivity implements CheeseSelectionFr
         numPeople = 1;
         numPeopleFragment = new NumPeopleFragment();
 
+    }
+
+    @Override
+    public void calculatePizza() {
+        int tempPeople = numPeople;
+        numXLarge = 0;
+        numLarge = 0;
+        numMedium = 0;
+        numSmall = 0;
+
+        while(tempPeople > 0) {
+            if(tempPeople >= 5){
+                numXLarge++;
+                tempPeople -= 5;
+            }
+            else if(tempPeople >= 4) {
+                numLarge++;
+                tempPeople -= 4;
+            }
+            else if(tempPeople >= 3) {
+                numMedium++;
+                tempPeople -= 3;
+            }
+            else if(tempPeople >= 1) {
+                numSmall++;
+                tempPeople -= 2;
+            }
+        }
     }
 }
