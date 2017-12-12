@@ -81,11 +81,11 @@ public class MeatImageAdapter extends BaseAdapter {
     public void setSelectedPositions(int position){
         if(selectedPositions.contains(position)){
             selectedPositions.remove(Integer.valueOf(position));
-            selectedMeats.add(meatNames.get(position));
+            selectedMeats.remove(meatNames.get(position));
         }
         else {
             selectedPositions.add(position);
-            selectedMeats.remove(meatNames.get(position));
+            selectedMeats.add(meatNames.get(position));
         }
     }
 
