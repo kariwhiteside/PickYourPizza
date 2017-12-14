@@ -94,6 +94,8 @@ public class StyleSelectionFragment extends Fragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Check to see if string var selectedStyle is populated at user select
+                Log.i("StyleSelectionFragment",selectedStyle+" THIS IS THE SELECTED STYLE");
                 activityCallback.changeFragment("SauceSelectionFragment", true);
             }
         });

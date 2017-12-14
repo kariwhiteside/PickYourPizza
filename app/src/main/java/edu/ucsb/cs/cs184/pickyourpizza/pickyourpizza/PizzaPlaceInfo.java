@@ -8,13 +8,13 @@ import java.util.Set;
 public class PizzaPlaceInfo {
 
     private String businessName;
-    private HashMap<String,String> pizzaSizes;
-    private HashMap<String,String> pizzaStyles;
-    private HashMap<String,String> toppings_Prices;
+    private HashMap<String,Double> pizzaSizes;
+    private HashMap<String,Double> pizzaStyles;
+    private HashMap<String,Double> toppings_Prices;
 
     public PizzaPlaceInfo(){}
 
-    public PizzaPlaceInfo(String businessName,HashMap<String,String> pizzaSizes,HashMap<String,String> pizzaStyles, HashMap<String,String> toppings_Prices){
+    public PizzaPlaceInfo(String businessName,HashMap<String,Double> pizzaSizes,HashMap<String,Double> pizzaStyles, HashMap<String,Double> toppings_Prices){
         this.businessName = businessName;
         this.pizzaSizes = pizzaSizes;
         this.pizzaStyles = pizzaStyles;
@@ -27,23 +27,23 @@ public class PizzaPlaceInfo {
 
     public void setName(String name){ businessName = name;}
 
-    public HashMap<String,String> getSize(){
+    public HashMap<String,Double> getSize(){
         return pizzaSizes;
     }
 
-    public void setPizzaSizes(HashMap<String,String> sizes) { pizzaStyles = sizes;}
+    public void setPizzaSizes(HashMap<String,Double> sizes) { pizzaStyles = sizes;}
 
-    public HashMap<String,String> getStyle(){
+    public HashMap<String,Double> getStyle(){
         return pizzaStyles;
     }
 
-    public void setPizzaStyles(HashMap<String,String> styles) { pizzaStyles = styles;}
+    public void setPizzaStyles(HashMap<String,Double> styles) { pizzaStyles = styles;}
 
-    public HashMap<String, String> getToppings_Price(){
+    public HashMap<String, Double> getToppings_Price(){
         return toppings_Prices;
     }
 
-    public void setToppings_Prices(HashMap<String,String> toppings_Prices) { this.toppings_Prices = toppings_Prices;}
+    public void setToppings_Prices(HashMap<String,Double> toppings_Prices) { this.toppings_Prices = toppings_Prices;}
 
 
 

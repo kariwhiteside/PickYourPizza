@@ -33,32 +33,32 @@ public class MainActivity extends AppCompatActivity implements CheeseSelectionFr
 
     // Style
     int selectedStylePosition;
-    String selectedStyle;
+    public static String selectedStyle = "White";
 
     // Sauce
     int selectedSaucePosition;
-    String selectedSauce;
+    public static String selectedSauce = "Marinara";
 
     // Veggies
     ArrayList<Integer> selectedVeggiesPositions = new ArrayList<>();
-    ArrayList<String> selectedVeggies = new ArrayList<>();
+    public static ArrayList<String> selectedVeggies = new ArrayList<>();
 
     // Meats
     ArrayList<Integer> selectedMeatsPositions = new ArrayList<>();
-    ArrayList<String> selectedMeats = new ArrayList<>();
+    public static ArrayList<String> selectedMeats = new ArrayList<>();
 
     // Cheeses
     ArrayList<Integer> selectedCheesesPositions = new ArrayList<>();
-    ArrayList<String> selectedCheeses = new ArrayList<>();
+    public static ArrayList<String> selectedCheeses = new ArrayList<>();
 
     // Number of People
     int numPeople;
 
     // Numbers of each size of pizza
-    int numXLarge;
-    int numLarge;
-    int numMedium;
-    int numSmall;
+    static int numXLarge;
+    static int numLarge;
+    static int numMedium;
+    static int numSmall;
 
 
     public DatabaseReference dBRef;
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements CheeseSelectionFr
         FirebaseCreate.Initialize();
 
         //Initialize task that waits for the all business information to be loaded into the Arraylist business
-        new BuildPizzaListTask(businessList).execute();
+        new BuildPizzaListTask(businessList,selectedStyle,selectedSauce,selectedVeggies,selectedMeats,selectedCheeses).execute();
 
         // Set StartPageFragment to be the first fragment to show
         fragmentManager.beginTransaction()
@@ -262,6 +262,7 @@ public class MainActivity extends AppCompatActivity implements CheeseSelectionFr
     @Override
     public void calculatePizza() {
         int tempPeople = numPeople;
+        Log.i("MainActi/calculatePizza", "THIS IS THE NUMBER OF PEOPLE " +Integer.toString(numPeople) );
         numXLarge = 0;
         numLarge = 0;
         numMedium = 0;

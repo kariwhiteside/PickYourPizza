@@ -3,6 +3,7 @@ package edu.ucsb.cs.cs184.pickyourpizza.pickyourpizza;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,6 +92,7 @@ public class MeatSelectionFragment extends Fragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i("MeatSelectionFragment", "selectedMeats: " + selectedMeats);
                 activityCallback.changeFragment("CheeseSelectionFragment", true);
             }
         });

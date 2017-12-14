@@ -38,7 +38,7 @@ public class MeatImageAdapter extends BaseAdapter {
                 R.drawable.pastrami,
                 R.drawable.salami));
         meatNames.addAll(Arrays.asList("Pepperoni", "Sausage", "Italian Sausage",
-                "Anchovies", "Bacon", "Barbecue Chicken", "Beef", "Canadian Bacon", "Chorizo",
+                "Anchovies", "Bacon", "BBQ Chicken", "Beef", "Canadian Bacon", "Chorizo",
                 "Garlic Clams", "Grilled Chicken", "Meatballs", "Pastrami", "Salami"));
     }
 
@@ -81,11 +81,11 @@ public class MeatImageAdapter extends BaseAdapter {
     public void setSelectedPositions(int position){
         if(selectedPositions.contains(position)){
             selectedPositions.remove(Integer.valueOf(position));
-            selectedMeats.add(meatNames.get(position));
+            selectedMeats.remove(meatNames.get(position));
         }
         else {
             selectedPositions.add(position);
-            selectedMeats.remove(meatNames.get(position));
+            selectedMeats.add(meatNames.get(position));
         }
     }
 
