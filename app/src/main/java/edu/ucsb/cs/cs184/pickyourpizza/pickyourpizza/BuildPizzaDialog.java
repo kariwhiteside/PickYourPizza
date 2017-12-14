@@ -44,6 +44,8 @@ public class BuildPizzaDialog extends DialogFragment{
             @Override
             public void onClick(View view) {
                 pizzaConfigured = true;
+                activityCallback.calculatePizza();
+                new BuildPizzaListTask(MainActivity.businessList,MainActivity.selectedStyle,MainActivity.selectedSauce,MainActivity.selectedVeggies,MainActivity.selectedMeats,MainActivity.selectedCheeses).execute();
                 getDialog().dismiss();
                 activityCallback.calculatePizza();
                 activityCallback.changeFragment("ListViewFragment", true);
