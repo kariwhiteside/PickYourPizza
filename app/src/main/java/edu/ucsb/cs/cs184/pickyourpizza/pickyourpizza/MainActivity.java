@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements CheeseSelectionFr
 
 
     public DatabaseReference dBRef;
-    public ArrayList<PizzaPlaceInfo> businessList;
+    public static ArrayList<PizzaPlaceInfo> businessList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements CheeseSelectionFr
         FirebaseCreate.Initialize();
 
         //Initialize task that waits for the all business information to be loaded into the Arraylist business
-        new BuildPizzaListTask(businessList,selectedStyle,selectedSauce,selectedVeggies,selectedMeats,selectedCheeses).execute();
+        //new BuildPizzaListTask(businessList,selectedStyle,selectedSauce,selectedVeggies,selectedMeats,selectedCheeses).execute();
 
         // Set StartPageFragment to be the first fragment to show
         fragmentManager.beginTransaction()
