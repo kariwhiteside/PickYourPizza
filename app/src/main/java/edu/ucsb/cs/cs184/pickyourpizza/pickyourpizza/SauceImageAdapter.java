@@ -31,13 +31,13 @@ public class SauceImageAdapter extends BaseAdapter {
         mContext = c;
         sauceImages.addAll(Arrays.asList(R.drawable.marinarasauce, R.drawable.barbequesauce,
                 R.drawable.creamygarlicsauce, R.drawable.creamysriracha,
-                R.drawable.pestosauce, R.drawable.ranchsauce,
+                R.drawable.pestosauce,
                 R.drawable.southernchipotlesauce, R.drawable.spinachalfredosauce));
-        sauceNames.addAll(Arrays.asList("Marinara Sauce", "Barbeque Sauce",
-                "Creamy Garlic Sauce", "Creamy Sriracha",
-                "Pesto Sauce", "Ranch Sauce",
-                "Southern Chipotle Sauce",
-                "Spinach Alfredo Sauce"));
+        sauceNames.addAll(Arrays.asList("Marinara Sauce", "BBQ Sauce",
+                "Creamy Garlic", "Creamy Sriracha",
+                "Pesto",
+                "Southern Chipotle",
+                "Spinach Alfredo"));
     }
 
     public int getCount() {

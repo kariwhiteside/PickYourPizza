@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.Button;
 public class BuildPizzaDialog extends DialogFragment{
     View view;
     FragmentHelper activityCallback;
+    public static boolean pizzaConfigured = false;
 
     public interface FragmentHelper {
         public void changeFragment(String newFragment, boolean forward);
@@ -41,6 +43,7 @@ public class BuildPizzaDialog extends DialogFragment{
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                pizzaConfigured = true;
                 getDialog().dismiss();
                 activityCallback.calculatePizza();
                 activityCallback.changeFragment("ListViewFragment", true);
@@ -58,4 +61,5 @@ public class BuildPizzaDialog extends DialogFragment{
 
         return view;
     }
+
 }

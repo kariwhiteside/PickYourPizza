@@ -3,6 +3,7 @@ package edu.ucsb.cs.cs184.pickyourpizza.pickyourpizza;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,6 +88,8 @@ public class SauceSelectionFragment extends Fragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Check to see if string var selectedSauce is populated at user select
+                Log.i("SauceSelectionFragment",selectedSauce+" THIS IS THE SELECTED SAUCE");
                 activityCallback.changeFragment("VeggieSelectionFragment", true);
             }
         });

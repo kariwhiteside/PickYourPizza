@@ -22,7 +22,7 @@ public class NumPeopleFragment extends Fragment {
     View view;
     FragmentHelper activityCallback;
 
-    int numPeople;
+    int numPeople = 1;
 
     public interface FragmentHelper {
         public void changeFragment(String newFragment, boolean forward);

@@ -49,7 +49,7 @@ public class VeggieImageAdapter extends BaseAdapter {
                 "Chopped Garlic", "Cilantro", "Green Chile",
                 "Green Olives", "Green Onions", "Green Peppers",
                 "Jalapenos", "Kalamata Olives", "Mushrooms",
-                "Mustard", "Onions", "Pepperocini", "Pineapple",
+                "Mustard", "Onions", "Pepperoncini", "Pineapple",
                 "Portobello Mushrooms", "Red Onions", "Roasted Bell Pepper",
                 "Roasted Garlic", "Sage", "Serrano Chili", "Sliced Figs",
                 "Spinach", "Sun Dried Tomatoes", "Sweety Drop Peppers",

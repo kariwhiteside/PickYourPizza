@@ -38,7 +38,7 @@ public class MeatImageAdapter extends BaseAdapter {
                 R.drawable.pastrami,
                 R.drawable.salami));
         meatNames.addAll(Arrays.asList("Pepperoni", "Sausage", "Italian Sausage",
-                "Anchovies", "Bacon", "Barbecue Chicken", "Beef", "Canadian Bacon", "Chorizo",
+                "Anchovies", "Bacon", "BBQ Chicken", "Beef", "Canadian Bacon", "Chorizo",
                 "Garlic Clams", "Grilled Chicken", "Meatballs", "Pastrami", "Salami"));
     }
 

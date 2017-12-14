@@ -33,9 +33,9 @@ public class CheeseImageAdapter extends BaseAdapter {
                 R.drawable.gorgonzolacheese, R.drawable.parmesancheese,
                 R.drawable.ricottacheese, R.drawable.romanocheese,
                 R.drawable.vegancheese));
-        cheeseNames.addAll(Arrays.asList("Extra Mozzarella", "Feta Cheese",
-                "Gorgonzola Cheese", "Parmesan Cheese",
-                "Ricotta Cheese", "Romano Cheese",
+        cheeseNames.addAll(Arrays.asList("Extra Mozzarella", "Feta",
+                "Gorgonzola", "Parmesan",
+                "Ricotta", "Romano",
                 "Vegan Cheese"));
     }
 

@@ -33,8 +33,8 @@ public class StyleImageAdapter extends BaseAdapter {
         mContext = c;
         styleImages.addAll(Arrays.asList(R.drawable.whitecrust, R.drawable.panpizza,
                 R.drawable.thincrust, R.drawable.wheatcrust, R.drawable.glutenfreecrust));
-        styleNames.addAll(Arrays.asList("White Crust", "Pan Pizza",
-                "Thin Crust", "Wheat Crust", "Gluten Free Crust"));
+        styleNames.addAll(Arrays.asList("White", "Pan",
+                "Thin", "Wheat", "Gluten-Free"));
     }
 
     public int getCount() {

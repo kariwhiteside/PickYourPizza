@@ -5,6 +5,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,6 +93,8 @@ public class CheeseSelectionFragment extends Fragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Check to see if string var selectedSauce is populated at user select
+                Log.i("CheeseSelectionFragment",selectedCheeses+" THIS IS THE SELECTED CHEESES");
                 //BuildPizzaDialog dialog = BuildPizzaDialog.instantiate(getActivity(), "Hello world");
                 BuildPizzaDialog dialog;
                 dialog = new BuildPizzaDialog();
