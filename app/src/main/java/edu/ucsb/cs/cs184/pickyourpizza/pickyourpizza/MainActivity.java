@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements CheeseSelectionFr
     VeggieSelectionFragment veggieSelectionFragment = new VeggieSelectionFragment();
     MeatSelectionFragment meatSelectionFragment = new MeatSelectionFragment();
     ListViewFragment listViewFragment = new ListViewFragment();
+    DetailPageFragment detailPageFragment = new DetailPageFragment();
 
     // SAVED DATA FROM FRAGMENTS
 
@@ -188,6 +189,20 @@ public class MainActivity extends AppCompatActivity implements CheeseSelectionFr
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right)
                             .replace(R.id.fragmentContainer, listViewFragment)
+                            .commit();
+                }
+                break;
+            case "DetailPageFragment":
+                if(forward) {
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
+                            .replace(R.id.fragmentContainer, detailPageFragment)
+                            .commit();
+                }
+                else{
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right)
+                            .replace(R.id.fragmentContainer, detailPageFragment)
                             .commit();
                 }
                 break;
