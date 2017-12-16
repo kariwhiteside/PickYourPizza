@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -21,11 +23,13 @@
 
     <TextView
         android:id="@+id/phoneNumTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_below="@id/pizzaPlaceTextView"
+        android:layout_gravity="center_horizontal"
         android:layout_marginBottom="10dp"
         android:text="Phone Number: "
+        android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="25sp" />
 
@@ -33,7 +37,8 @@
         android:id="@+id/toppingsAvailTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="6dp"
+        android:layout_below="@id/phoneNumTextView"
+        android:layout_marginBottom="15dp"
         android:layout_marginLeft="20dp"
         android:text="Toppings Available: "
         android:textColor="@android:color/black"
@@ -43,7 +48,8 @@
         android:id="@+id/toppingsNotAvailTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="6dp"
+        android:layout_below="@id/toppingsAvailTextView"
+        android:layout_marginBottom="15dp"
         android:layout_marginLeft="20dp"
         android:text="Toppings Not Available: "
         android:textColor="@android:color/black"
@@ -53,7 +59,8 @@
         android:id="@+id/pizzaSizesTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="6dp"
+        android:layout_below="@id/toppingsNotAvailTextView"
+        android:layout_marginBottom="15dp"
         android:layout_marginLeft="20dp"
         android:text="Recommended Sizes: "
         android:textColor="@android:color/black"
@@ -66,33 +73,44 @@
         android:layout_marginLeft="20dp"
         android:text="Price: "
         android:textColor="@android:color/black"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:layout_below="@id/pizzaSizesTextView"/>
 
-    <TextView
-        android:id="@+id/locationTextView"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:text="Location Near You:"
-        android:textColor="@android:color/black"
-        android:textSize="25sp" />
+        android:orientation="vertical"
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true">
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/map"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="25dp" />
+        <TextView
+            android:id="@+id/locationTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="0dp"
+            android:text="Location Near You:"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textSize="25sp" />
 
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Back"
-        android:layout_gravity="left"/>
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="10dp" />
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|bottom"
+            android:text="Back" />
+    </LinearLayout>
 
 
-
-
-</LinearLayout>
+</RelativeLayout>
