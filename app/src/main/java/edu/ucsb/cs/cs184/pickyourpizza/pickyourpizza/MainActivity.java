@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements CheeseSelectionFr
     ListViewFragment listViewFragment = new ListViewFragment();
     DetailPageFragment detailPageFragment = new DetailPageFragment();
 
+    String businessNameChosen;
+
     // SAVED DATA FROM FRAGMENTS
 
     // Style
@@ -301,5 +303,11 @@ public class MainActivity extends AppCompatActivity implements CheeseSelectionFr
                 tempPeople -= 2;
             }
         }
+    }
+
+    @Override
+    public void setBusinessName(String businessName) {
+        this.businessNameChosen = businessName;
+        detailPageFragment.setBusinessName(businessName);
     }
 }

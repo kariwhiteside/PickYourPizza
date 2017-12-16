@@ -39,6 +39,7 @@ public class ListViewFragment extends Fragment {
     public interface FragmentHelper {
         public void changeFragment(String newFragment, boolean forward);
         public void clearSelections();
+        public void setBusinessName(String businessName);
     }
 
     private ArrayList<PizzaPlace> pizzaPlaces;
@@ -87,7 +88,8 @@ public class ListViewFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 // open Details Fragment
                 activityCallback.changeFragment("DetailPageFragment", true);
-                // Toast.makeText(context, pizzaPlaces.get(i).getChain(), Toast.LENGTH_SHORT ).show();
+                //Toast.makeText(context, pizzaPlaces.get(i).getChain(), Toast.LENGTH_SHORT ).show();
+                activityCallback.setBusinessName(pizzaPlaces.get(i).getChain());
             }
         });
 
