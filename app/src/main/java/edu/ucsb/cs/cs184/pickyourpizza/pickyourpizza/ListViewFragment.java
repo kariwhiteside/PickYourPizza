@@ -71,8 +71,10 @@ public class ListViewFragment extends Fragment {
         //String chain, String pizzaTypes, String price, int photoID
         pizzaPlaces = new ArrayList<PizzaPlace>();
         //iterate through all businesses in the list and create a PizzaPlace object
-        for(int i = 0; i < businessList.size(); i ++){
-            pizzaPlaces.add(new PizzaPlace(businessList.get(i).getName(),listOfSizes,"$"+new DecimalFormat("###.##").format(priceList.get(i)), getResources().getIdentifier(determineDrawableName(businessList.get(i).getName()),"drawable",context.getPackageName())));
+        if (businessList != null) {
+            for (int i = 0; i < businessList.size(); i++) {
+                pizzaPlaces.add(new PizzaPlace(businessList.get(i).getName(), listOfSizes, "$" + new DecimalFormat("###.##").format(priceList.get(i)), getResources().getIdentifier(determineDrawableName(businessList.get(i).getName()), "drawable", context.getPackageName())));
+            }
         }
         /*
         pizzaPlaces.add(new PizzaPlace("WoodStock's Pizza", "2 Small", "13.44 + tax", R.drawable.woodstocks_logo));
