@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements CheeseSelectionFr
     public static ArrayList<String> selectedCheeses = new ArrayList<>();
 
     // Number of People
-    int numPeople;
+    public static int numPeople;
 
     // Numbers of each size of pizza
     static int numXLarge;
@@ -279,7 +279,7 @@ public class MainActivity extends AppCompatActivity implements CheeseSelectionFr
     @Override
     public void calculatePizza() {
         int tempPeople = numPeople;
-        Log.i("MainActi/calculatePizza", "THIS IS THE NUMBER OF PEOPLE " +Integer.toString(numPeople) );
+
         numXLarge = 0;
         numLarge = 0;
         numMedium = 0;

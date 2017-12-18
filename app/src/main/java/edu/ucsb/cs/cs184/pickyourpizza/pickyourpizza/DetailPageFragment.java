@@ -3,12 +3,15 @@ package edu.ucsb.cs.cs184.pickyourpizza.pickyourpizza;
 import android.*;
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -60,6 +63,8 @@ public class DetailPageFragment extends Fragment implements OnMapReadyCallback {
     PlaceDetectionClient mPlaceDetectionClient;
     FusedLocationProviderClient mFusedLocationProviderClient;
 
+    public static Context context;
+
     boolean mLocationPermissionGranted = false;
     Location mLastKnownLocation;
     Locale mLocale;
@@ -99,6 +104,7 @@ public class DetailPageFragment extends Fragment implements OnMapReadyCallback {
         mPlaceDetectionClient = Places.getPlaceDetectionClient(getContext(), null);
         // Construct a FusedLocationProviderClient.
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getContext());
+        context = getContext();
     }
 
     @Nullable
@@ -114,10 +120,44 @@ public class DetailPageFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
+        //set index used to get the correct information through the data structures
+        final int index = getIndexOfBusiness();
+        //Set Business name of selected business from List View
         TextView pizzaPlaceTextView = (TextView) view.findViewById(R.id.pizzaPlaceTextView);
         if (businessName != null) {
             pizzaPlaceTextView.setText(businessName);
         }
+
+        TextView phoneNumber = (TextView) view.findViewById(R.id.phoneNumTextView);
+        phoneNumber.setText(BuildPizzaListTask.business.get(index).getPhoneNumber());
+        //set listener to listen for User tapping on phone number to make call
+        phoneNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //start up phone app (dial pad) and pass in business phone number
+                Intent phoneCall = new Intent(Intent.ACTION_DIAL);
+                phoneCall.setData(Uri.parse("tel:"+BuildPizzaListTask.business.get(index).getPhoneNumber().replaceAll("\\D+","")));
+                startActivity(phoneCall);
+            }
+        });
+
+        TextView toppingsAvailable = (TextView) view.findViewById(R.id.toppingsAvailTextView);
+        toppingsAvailable.setText("Options available: " +BuildPizzaListTask.options_Available.get(index).toString().replaceAll("(^\\[|]$)", ""));
+
+        TextView toppingsNotAvailable = (TextView) view.findViewById(R.id.toppingsNotAvailTextView);
+        toppingsNotAvailable.setText("Options not available: " +BuildPizzaListTask.options_Not_Available.get(index).toString().replaceAll("(^\\[|]$)", ""));
+
+        TextView recommendedSizes = (TextView) view.findViewById(R.id.pizzaSizesTextView);
+        //if X-Large is not available then replace recommended Sizes with Large sized pizzas
+        if(BuildPizzaListTask.options_Not_Available.get(index).toString().contains("X-Large")) {
+            recommendedSizes.setText("Recommended Sizes: "+ ListViewFragment.listOfSizes.replaceAll("X-", ""));
+        }
+        else{
+            recommendedSizes.setText("Recommended Sizes: " + ListViewFragment.listOfSizes);
+        }
+
+        TextView price = (TextView) view.findViewById(R.id.priceTextView);
+        price.setText(String.format("Price: $%.2f",BuildPizzaListTask.options_Available_Price.get(index)));
 
 
         return view;
@@ -150,6 +190,7 @@ public class DetailPageFragment extends Fragment implements OnMapReadyCallback {
 
     public void setBusinessName(String businessName) {
         this.businessName = businessName;
+        Log.i("DetailP/setBusinessName","THIS IS THE SELECTED BUSINESS NAME " + businessName);
     }
 
     private void getLocationPermission() {
@@ -201,7 +242,7 @@ public class DetailPageFragment extends Fragment implements OnMapReadyCallback {
                 getLocationPermission();
             }
         } catch (SecurityException e)  {
-            Log.e("Exception: %s", e.getMessage());
+            Log.e("Exception: %s3", e.getMessage());
         }
     }
 
@@ -222,10 +263,12 @@ public class DetailPageFragment extends Fragment implements OnMapReadyCallback {
                             mLastKnownLocation = (Location)task.getResult();
                             currentLatitude = mLastKnownLocation.getLatitude();
                             currentLongitude = mLastKnownLocation.getLongitude();
+                            Log.i("CURRENT LOCATION", "Current Latitude: " + currentLatitude + " Current Longitude: " + currentLongitude);
                             launchMap();
                         } else {
                             Log.d("getDeviceLocation", "Current location is null. Using defaults.");
-                            Log.e("getDeviceLocation", "Exception: %s", task.getException());
+                            Log.e("getDeviceLocation", "Exception: %s2", task.getException());
+                            //default is UCSB Lat,Long
                             currentLatitude = 34.412936;
                             currentLongitude = -119.847863;
                             launchMap();
@@ -247,35 +290,28 @@ public class DetailPageFragment extends Fragment implements OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(currentLatitude,
                         currentLongitude), DEFAULT_ZOOM));
-                        */
+        */
 
         List<Address> addressList = null;
-        if (businessName != null && !businessName.equals("")) {
-            Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+        //check for valid business name
+        if (businessName != null && !businessName.equals(""))
+        {
+            //execute task to search for business on google maps
+            //then focus and mark the map at the address of the business
+            new GoogleMapAsynTask(currentLatitude,currentLongitude,businessName,mMap,addressList).execute();
+        }
 
-            Log.i("launchMap", "businessName: " + businessName);
-            try {
-                addressList = geocoder.getFromLocationName(businessName, 1);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            Log.i("launchMap", "addressList: " + addressList);
+    }
 
-            if (addressList != null && addressList.size() != 0) {
-                Address address = addressList.get(0);
-                LatLng businessLocation = new LatLng(address.getLatitude(), address.getLongitude());
-
-                float zoomLevel = 14.0f; //This goes up to 21
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(businessLocation, zoomLevel));
-                mMap.addMarker(new MarkerOptions().position(businessLocation).title(address.getAddressLine(0) +
-                        address.getAddressLine(1) + address.getAddressLine(2)));
-            } else {
-                LatLng UCSB = new LatLng(34.412936, -119.847863);
-                float zoomLevel = 14.0f; //This goes up to 21
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(UCSB, zoomLevel));
-                mMap.addMarker(new MarkerOptions().position(UCSB).title(businessName));
+    //loops through the business list and checks to see if name matches selected item from ListView
+    public int getIndexOfBusiness(){
+        for(int i = 0; i < MainActivity.businessList.size(); i++){
+            if(MainActivity.businessList.get(i).getName().equals(businessName)){
+                return i;
             }
         }
+        Log.i("DetailP/getIndexOfBusin", "NO INDEX RETURNED. NO MATCHES TO BUSINESS FOUND");
+        return -1;
     }
 
 }

@@ -59,29 +59,40 @@ public class ListViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.listview_fragment, container, false);
 
-        System.out.println("Selected Sauce is: " + MainActivity.selectedSauce + "  Call at ListViewFragment Create");
-        System.out.println("Selected Style is: " + MainActivity.selectedStyle+ "  Call at ListViewFragment Create");
-        System.out.println("Selected Veggies is: " +MainActivity.selectedVeggies+ "  Call at ListViewFragment Create");
-        System.out.println("Selected Meats is: " + MainActivity.selectedMeats+ "  Call at ListViewFragment Create");
-        System.out.println("Selected Cheeses is"  + MainActivity.selectedCheeses+ "  Call at ListViewFragment Create");
-        System.out.println("Determined Pizzas are: "+ MainActivity.numXLarge +" X-Large  " + MainActivity.numLarge + " Large " + MainActivity.numMedium + " Medium  " + MainActivity.numSmall +" Small");
+
+        Log.i("ListViewFr/onCreateView","Selected Sauce is: " + MainActivity.selectedSauce);
+        Log.i("ListViewFr/onCreateView","Selected Style is: " + MainActivity.selectedStyle);
+        Log.i("ListViewFr/onCreateView","Selected Veggies is: " +MainActivity.selectedVeggies);
+        Log.i("ListViewFr/onCreateView","Selected Meats is: " + MainActivity.selectedMeats);
+        Log.i("ListViewFr/onCreateView","Selected Cheeses is"  + MainActivity.selectedCheeses);
+        Log.i("ListViewFr/onCreateView","Determined Pizzas are: "+ MainActivity.numXLarge +" X-Large  " + MainActivity.numLarge + " Large " + MainActivity.numMedium + " Medium  " + MainActivity.numSmall +" Small");
+
 
         final Context context;
         context = this.getContext();
         //String chain, String pizzaTypes, String price, int photoID
         pizzaPlaces = new ArrayList<PizzaPlace>();
+        String XLargeToLarge = listOfSizes.replaceAll("X-Large","Large");
         //iterate through all businesses in the list and create a PizzaPlace object
-        if (businessList != null) {
-            for (int i = 0; i < businessList.size(); i++) {
-                pizzaPlaces.add(new PizzaPlace(businessList.get(i).getName(), listOfSizes, "$" + new DecimalFormat("###.##").format(priceList.get(i)), getResources().getIdentifier(determineDrawableName(businessList.get(i).getName()), "drawable", context.getPackageName())));
+        for(int i = 0; i < businessList.size(); i ++){
+            //if the listOfSizes contains one or more X-Large make adjustment to reflect available sizes
+            if(listOfSizes.contains("X-Large")){
+                //if the business has XLarge sized pizzas don't make string adjustment
+                if(businessList.get(i).getSize().get("X-Large") != null){
+                    pizzaPlaces.add(new PizzaPlace(businessList.get(i).getName(),listOfSizes,"$"+new DecimalFormat("###.##").format(priceList.get(i)), getResources().getIdentifier(determineDrawableName(businessList.get(i).getName()),"drawable",context.getPackageName())));
+
+                }
+                //the business has no X-Large sized pizzas so display Large pizzas instead
+                else{
+                    pizzaPlaces.add(new PizzaPlace(businessList.get(i).getName(),XLargeToLarge,"$"+new DecimalFormat("###.##").format(priceList.get(i)), getResources().getIdentifier(determineDrawableName(businessList.get(i).getName()),"drawable",context.getPackageName())));
+                }
             }
+            //No X-Large pizza sizes selected so just display the sizes
+            else{
+                pizzaPlaces.add(new PizzaPlace(businessList.get(i).getName(),listOfSizes,"$"+new DecimalFormat("###.##").format(priceList.get(i)), getResources().getIdentifier(determineDrawableName(businessList.get(i).getName()),"drawable",context.getPackageName())));
+            }
+
         }
-        /*
-        pizzaPlaces.add(new PizzaPlace("WoodStock's Pizza", "2 Small", "13.44 + tax", R.drawable.woodstocks_logo));
-        pizzaPlaces.add(new PizzaPlace("Pizza My Heart", "1 Medium, 1 Large", "16.99 + tax", R.drawable.pizza_my_heart_logo));
-        pizzaPlaces.add(new PizzaPlace("Rusty's Pizza Parlor", "2 Small", "13.44 + tax", R.drawable.rustys_pizza_parlor_logo));
-        pizzaPlaces.add(new PizzaPlace("Papa John's", "1 Medium, 1 Large", "16.99 + tax", R.drawable.papa_johns_logo));
-*/
         ListView listView = (ListView) view.findViewById(R.id.listview);
         listView.setAdapter(new PizzaPlaceAdapter(this.getContext(), pizzaPlaces));
 

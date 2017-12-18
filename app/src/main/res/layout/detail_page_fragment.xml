@@ -33,52 +33,67 @@
         android:textColor="@android:color/black"
         android:textSize="25sp" />
 
-    <TextView
-        android:id="@+id/toppingsAvailTextView"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/phoneNumTextView"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="20dp"
-        android:text="Toppings Available: "
-        android:textColor="@android:color/black"
-        android:textSize="20sp" />
+        android:layout_above="@id/MapInfo">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/toppingsNotAvailTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/toppingsAvailTextView"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="20dp"
-        android:text="Toppings Not Available: "
-        android:textColor="@android:color/black"
-        android:textSize="20sp" />
+            <TextView
+                android:id="@+id/toppingsAvailTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/phoneNumTextView"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="20dp"
+                android:text="Toppings Available: "
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/pizzaSizesTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/toppingsNotAvailTextView"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="20dp"
-        android:text="Recommended Sizes: "
-        android:textColor="@android:color/black"
-        android:textSize="20sp" />
+            <TextView
+                android:id="@+id/toppingsNotAvailTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/toppingsAvailTextView"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="20dp"
+                android:text="Toppings Not Available: "
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/priceTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:text="Price: "
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
-        android:layout_below="@id/pizzaSizesTextView"/>
+            <TextView
+                android:id="@+id/pizzaSizesTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/toppingsNotAvailTextView"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="20dp"
+                android:text="Recommended Sizes: "
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/priceTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="Price: "
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:layout_below="@id/pizzaSizesTextView"/>
+
+        </LinearLayout>
+    </ScrollView>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/MapInfo"
         android:orientation="vertical"
         android:layout_gravity="bottom"
         android:layout_alignParentBottom="true">
