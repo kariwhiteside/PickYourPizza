@@ -87,6 +87,7 @@ public class FirebaseCreate {
         DatabaseReference pizzaMyHeart = dBRef.child("Pizza My Heart");
         pizzaMyHeart.setValue("Pizza My Heart");
         pizzaMyHeart.child("Name").setValue("Pizza My Heart");
+        pizzaMyHeart.child("Phone Number").setValue("(805) 845-0008");
         pizzaMyHeart.child("Size").setValue(pizzaMyHeart_Size);
         pizzaMyHeart.child("Style").setValue(pizzaMyHeart_Style);
         pizzaMyHeart.child("Toppings_Price").setValue(pizzaMyHeart_Toppings_Price);
@@ -132,6 +133,7 @@ public class FirebaseCreate {
         DatabaseReference papaJohn = dBRef.child("Papa John's");
         papaJohn.setValue("Papa John's");
         papaJohn.child("Name").setValue("Papa John's");
+        papaJohn.child("Phone Number").setValue("(805) 967-2421");
         papaJohn.child("Size").setValue(papaJohns_Size);
         papaJohn.child("Style").setValue(papaJohns_Style);
         papaJohn.child("Toppings_Price").setValue(papaJohns_Toppings_Price);
@@ -187,6 +189,7 @@ public class FirebaseCreate {
         DatabaseReference woodStock = dBRef.child("WoodStock's Pizza");
         woodStock.setValue("WoodStock's Pizza");
         woodStock.child("Name").setValue("WoodStock's Pizza");
+        woodStock.child("Phone Number").setValue("(805) 968-6969");
         woodStock.child("Size").setValue(woodStock_Size);
         woodStock.child("Style").setValue(woodStock_Style);
         woodStock.child("Toppings_Price").setValue(woodStock_Toppings_Price);
@@ -226,6 +229,7 @@ public class FirebaseCreate {
         DatabaseReference rustyPizzaParlor = dBRef.child("Rusty's Pizza Parlor");
         rustyPizzaParlor.setValue("Rusty's Pizza Parlor");
         rustyPizzaParlor.child("Name").setValue("Rusty's Pizza Parlor");
+        rustyPizzaParlor.child("Phone Number").setValue("(805) 564-4111");
         rustyPizzaParlor.child("Size").setValue(rustyPizzaParlor_Size);
         rustyPizzaParlor.child("Style").setValue(rustyPizzaParlor_Style);
         rustyPizzaParlor.child("Toppings_Price").setValue(rustyPizzaParlor_Toppings_Price);
@@ -252,31 +256,34 @@ public class FirebaseCreate {
 
                 //Get datasnapshot child information and store the information into variables
                 String name = (String) dataSnapshot.child("Papa John's/Name").getValue();
+                String phone_Number = (String) dataSnapshot.child("Papa John's/Phone Number").getValue();
                 HashMap<String,Double> style = (HashMap<String,Double>) dataSnapshot.child("Papa John's/Style").getValue();
                 HashMap<String,Double> size = (HashMap<String,Double>) dataSnapshot.child("Papa John's/Size").getValue();
                 HashMap<String,Double> toppings = (HashMap<String,Double>) dataSnapshot.child("Papa John's/Toppings_Price").getValue();
 
                 String name2 = (String) dataSnapshot.child("Pizza My Heart/Name").getValue();
+                String phone_Number2 = (String) dataSnapshot.child("Pizza My Heart/Phone Number").getValue();
                 HashMap<String,Double> style2 = (HashMap<String,Double>) dataSnapshot.child("Pizza My Heart/Style").getValue();
                 HashMap<String,Double> size2 = (HashMap<String,Double>) dataSnapshot.child("Pizza My Heart/Size").getValue();
                 HashMap<String,Double> toppings2 = (HashMap<String,Double>) dataSnapshot.child("Pizza My Heart/Toppings_Price").getValue();
 
-                String name3 = (String) dataSnapshot.child("Rusty's Pizza Parlor/Name").getValue();
+                String name3 = (String) dataSnapshot.child("Rusty's Pizza Parlor/Name").getValue();                          String phone_Number3 = (String) dataSnapshot.child("Rusty's Pizza Parlor/Phone Number").getValue();
                 HashMap<String,Double> style3 = (HashMap<String,Double>) dataSnapshot.child("Rusty's Pizza Parlor/Style").getValue();
                 HashMap<String,Double> size3 = (HashMap<String,Double>) dataSnapshot.child("Rusty's Pizza Parlor/Size").getValue();
                 HashMap<String,Double> toppings3 = (HashMap<String,Double>) dataSnapshot.child("Rusty's Pizza Parlor/Toppings_Price").getValue();
 
                 String name4 = (String) dataSnapshot.child("WoodStock's Pizza/Name").getValue();
+                String phone_Number4 = (String) dataSnapshot.child("WoodStock's Pizza/Phone Number").getValue();
                 HashMap<String,Double> style4 = (HashMap<String,Double>) dataSnapshot.child("WoodStock's Pizza/Style").getValue();
                 HashMap<String,Double> size4 = (HashMap<String,Double>) dataSnapshot.child("WoodStock's Pizza/Size").getValue();
                 HashMap<String,Double> toppings4 = (HashMap<String,Double>) dataSnapshot.child("WoodStock's Pizza/Toppings_Price").getValue();
 
 
                 //Create objects that simply access to pizzaInfo
-                PizzaPlaceInfo pj = new PizzaPlaceInfo(name,size,style,toppings);
-                PizzaPlaceInfo pmh = new PizzaPlaceInfo(name2,size2,style2,toppings2);
-                PizzaPlaceInfo rpp = new PizzaPlaceInfo(name3,size3,style3,toppings3);
-                PizzaPlaceInfo wsp = new PizzaPlaceInfo(name4,size4,style4,toppings4);
+                PizzaPlaceInfo pj = new PizzaPlaceInfo(name,phone_Number,size,style,toppings);
+                PizzaPlaceInfo pmh = new PizzaPlaceInfo(name2,phone_Number2,size2,style2,toppings2);
+                PizzaPlaceInfo rpp = new PizzaPlaceInfo(name3,phone_Number3,size3,style3,toppings3);
+                PizzaPlaceInfo wsp = new PizzaPlaceInfo(name4,phone_Number4,size4,style4,toppings4);
 
                 businessList.add(pj);
                 businessList.add(pmh);

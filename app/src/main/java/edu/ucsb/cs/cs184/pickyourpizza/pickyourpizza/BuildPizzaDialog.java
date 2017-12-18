@@ -46,8 +46,9 @@ public class BuildPizzaDialog extends DialogFragment{
                 pizzaConfigured = true;
                 activityCallback.calculatePizza();
                 new BuildPizzaListTask(MainActivity.businessList,MainActivity.selectedStyle,MainActivity.selectedSauce,MainActivity.selectedVeggies,MainActivity.selectedMeats,MainActivity.selectedCheeses).execute();
+                Log.i("PizzaDia/calculatePizza", "THIS IS THE NUMBER OF PEOPLE " +Integer.toString(MainActivity.numPeople) );
+
                 getDialog().dismiss();
-                activityCallback.calculatePizza();
                 activityCallback.changeFragment("ListViewFragment", true);
             }
         });

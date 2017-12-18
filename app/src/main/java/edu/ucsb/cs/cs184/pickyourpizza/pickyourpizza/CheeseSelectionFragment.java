@@ -93,9 +93,9 @@ public class CheeseSelectionFragment extends Fragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Check to see if string var selectedSauce is populated at user select
+
+                //Check to see if string var selectedCheeses is populated at user select
                 Log.i("CheeseSelectionFragment",selectedCheeses+" THIS IS THE SELECTED CHEESES");
-                //BuildPizzaDialog dialog = BuildPizzaDialog.instantiate(getActivity(), "Hello world");
                 BuildPizzaDialog dialog;
                 dialog = new BuildPizzaDialog();
                 dialog.show(getFragmentManager(), "dialog");

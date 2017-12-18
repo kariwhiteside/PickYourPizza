@@ -11,11 +11,13 @@ public class PizzaPlaceInfo {
     private HashMap<String,Double> pizzaSizes;
     private HashMap<String,Double> pizzaStyles;
     private HashMap<String,Double> toppings_Prices;
+    private String phoneNumber;
 
     public PizzaPlaceInfo(){}
 
-    public PizzaPlaceInfo(String businessName,HashMap<String,Double> pizzaSizes,HashMap<String,Double> pizzaStyles, HashMap<String,Double> toppings_Prices){
+    public PizzaPlaceInfo(String businessName,String phoneNumber, HashMap<String,Double> pizzaSizes,HashMap<String,Double> pizzaStyles, HashMap<String,Double> toppings_Prices){
         this.businessName = businessName;
+        this.phoneNumber = phoneNumber;
         this.pizzaSizes = pizzaSizes;
         this.pizzaStyles = pizzaStyles;
         this.toppings_Prices = toppings_Prices;
@@ -26,6 +28,14 @@ public class PizzaPlaceInfo {
     }
 
     public void setName(String name){ businessName = name;}
+
+    public String getPhoneNumber(){
+        return phoneNumber;
+    }
+
+    public void setString(String phoneNumber){
+        this.phoneNumber = phoneNumber;
+    }
 
     public HashMap<String,Double> getSize(){
         return pizzaSizes;

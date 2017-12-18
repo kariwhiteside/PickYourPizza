@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class BuildPizzaListTask extends AsyncTask<Void, Void, Void>
 {
-    private ArrayList<PizzaPlaceInfo> business;
+    public static ArrayList<PizzaPlaceInfo> business;
 
     private String listOfSizes;
     private List<String> pizzaSizes;
@@ -24,9 +24,9 @@ public class BuildPizzaListTask extends AsyncTask<Void, Void, Void>
     private List<String> cheeseToppings;
 
     private List<String> ingredientsSelected;
-    private List<List<String>> options_Available;
-    private List<List<String>> options_Not_Available;
-    private List<Double> options_Available_Price;
+    public static List<List<String>> options_Available;
+    public static List<List<String>> options_Not_Available;
+    public static List<Double> options_Available_Price;
 
     public BuildPizzaListTask(ArrayList<PizzaPlaceInfo> business,String style, String sauce, ArrayList<String> veggieToppings, ArrayList<String> meatToppings, ArrayList<String> cheeseToppings){
         this.business = business;
@@ -63,7 +63,9 @@ public class BuildPizzaListTask extends AsyncTask<Void, Void, Void>
         //populate ArrayList with Strings containing determined pizza sizes (i.e. 1 Medium, 2 Large)
         pizzaSizes = new ArrayList<>();
         determinePizzaSizes();
-        Log.i("BuildPizzaListTask",pizzaSizes+ "THIS IS THE DETERMINED AMOUNT OF PIZZAS");
+
+        //Log to check the determine amount of pizzas
+        //Log.i("BuildPizzaListTask",pizzaSizes+ "THIS IS THE DETERMINED AMOUNT OF PIZZAS");
 
         //merge separate topping lists into one ingredients list
         mergeLists();
@@ -83,10 +85,12 @@ public class BuildPizzaListTask extends AsyncTask<Void, Void, Void>
         //determine the price of each pizza order from each business
         checkOptionAvailabilityPrice();
 
+        // logs to check User input against data stored
         Log.i("BPLTask/OnPostExecute","Ingredients Selected " +ingredientsSelected.toString());
         Log.i("BPLTask/OnPostExecute","Options Available "+options_Available.toString());
         Log.i("BPLTask/OnPostExecute","Options Not Available " +options_Not_Available.toString());
         Log.i("BPLTask/OnPostExecute","Price for the Pizza" + options_Available_Price);
+        //
 
         //Pass business information for business name before ListViewFragment is created
         ListViewFragment.setBusinessList(business);
@@ -115,6 +119,7 @@ public class BuildPizzaListTask extends AsyncTask<Void, Void, Void>
         for (int i = 0; i < business.size(); i++) {
             double pizzaPrice = 0;
 
+            //Log.i("Task/checkOptionAvail", "Current business: " + business.get(i).getName());
             //calculate and return pizza price determined by pizza size
             pizzaPrice = getPizzaSizePrice(i,pizzaPrice);
 
@@ -126,6 +131,7 @@ public class BuildPizzaListTask extends AsyncTask<Void, Void, Void>
 
             //add pizza price to order for that business
             options_Available_Price.add(i,pizzaPrice);
+            //Log.i("checkOptionAvail", "THIS IS THE PRICE LIST" + options_Available_Price);
         }
     }
 
@@ -134,16 +140,16 @@ public class BuildPizzaListTask extends AsyncTask<Void, Void, Void>
         for(String pizzaSize: pizzaSizes){
             //if pizzaSize is available for current business then add price to currentTotal and keep track of available options
             if(business.get(index).getSize().containsKey(pizzaSize)){
-                Log.i("ATask/getPizzaSizePrice","Price for a " + pizzaSize+ " "+business.get(index).getSize().get(pizzaSize).toString());
-                currentTotal = currentTotal +   business.get(index).getSize().get(pizzaSize);
-                options_Available.get(index).add(pizzaSize);
+                //Log.i("Task/getPizzaSizePrice","Price for a " + pizzaSize+ " "+business.get(index).getSize().get(pizzaSize).toString());
+                currentTotal = currentTotal + business.get(index).getSize().get(pizzaSize);
+                //options_Available.get(index).add(pizzaSize);
             }
             else{
                 //default case set order to X medium pizza sizes, where X is pizzaSizes.size()
                 //keep track of non available toppings for future reference
                 currentTotal = currentTotal +  business.get(index).getSize().get("Large");
                 options_Not_Available.get(index).add(pizzaSize);
-                options_Available.get(index).add("Large");
+                //options_Available.get(index).add("Large");
             }
         }
 
@@ -154,8 +160,10 @@ public class BuildPizzaListTask extends AsyncTask<Void, Void, Void>
     private double getPizzaStylePrice(int index, double currentTotal){
         //if business has the available style then add its price to the total and keep track of the available style
         if(business.get(index).getStyle().containsKey(style)){
+
             Log.i("Task/getPizzaStylePrice","THIS IS THE STYLE: "+style);
             Log.i("Task/getPizzaStylePrice","Price for a " + style + " "+business.get(index).getStyle().get(style));
+
             currentTotal = currentTotal +  business.get(index).getStyle().get(style);
             options_Available.get(index).add(style);
         }
@@ -170,7 +178,7 @@ public class BuildPizzaListTask extends AsyncTask<Void, Void, Void>
 
     //check to see what pizza toppings are available and add its price to the total while keeping track of unavailable toppings
     private double getPizzaToppingPrice(int index, double currentTotal){
-        ArrayList<Double> multiplier;
+        ArrayList<Double> multiplierForEachPizza;
         //if no extra ingredients are selected return total (Makes CHEESE PIZZA)
         if(ingredientsSelected.size() == 0)
         {
@@ -183,13 +191,18 @@ public class BuildPizzaListTask extends AsyncTask<Void, Void, Void>
                 return currentTotal;
             else {
                 //get the multiplier for each pizza size
-                multiplier = toppingPriceMultiplierBySize(index);
+                multiplierForEachPizza = toppingPriceMultiplierBySize(index);
+                //Log.i("getPizzaToppingsPrice", "THIS IS thE INGREDIENT SIZE" + ingredientsSelected.size());
                 for (String ingredient : ingredientsSelected) {
                     //if business has the topping apply the appropriate price to the total and keep track of ingredients added
                     if (business.get(index).getToppings_Price().containsKey(ingredient)) {
-                        //determine the size of multiplier. This value is determined by the number of pizzas determined appropraite for order. For each of the pizza sizes determine the price of topping and add it to the currentTotal
-                        for(int i = 0; i < multiplier.size(); i++){
-                            currentTotal = currentTotal + multiplier.get(i)*business.get(index).getToppings_Price().get(ingredient);
+                        //determine the size of multiplier. This value is determined by the number of pizzas determined appropriate for order. For each of the pizza sizes determine the price of topping and add it to the currentTotal
+                        for(int i = 0; i < multiplierForEachPizza.size(); i++){
+                            currentTotal = currentTotal + multiplierForEachPizza.get(i)*business.get(index).getToppings_Price().get(ingredient);
+
+                            //Log to check currentTotal against added topping price
+                            //Log.i("Task/PizzaToppingsPrice","Topping: " + ingredient +" "+"Topping Price: "+ multiplierForEachPizza.get(i)*business.get(index).getToppings_Price().get(ingredient) + " Current Total: " + currentTotal);
+                            //Log.i("Task/PizzaToppingsPrice","Topping: "+ ingredient);
                         }
                         options_Available.get(index).add(ingredient);
                     }
@@ -220,7 +233,7 @@ public class BuildPizzaListTask extends AsyncTask<Void, Void, Void>
         }
         //populate List for future getPizzaSizePrice() call
         else{
-            Log.i("determinePizzaSizes","Small: "+ Integer.toString(MainActivity.numSmall) +" Medium: " + Integer.toString(MainActivity.numMedium) + " Large: " + Integer.toString(MainActivity.numLarge) + " X-Large "+ Integer.toString(MainActivity.numXLarge));
+            //Log.i("determinePizzaSizes","Small: "+ Integer.toString(MainActivity.numSmall) +" Medium: " + Integer.toString(MainActivity.numMedium) + " Large: " + Integer.toString(MainActivity.numLarge) + " X-Large "+ Integer.toString(MainActivity.numXLarge));
             for(int i = 0; i < MainActivity.numSmall; i++){
                 pizzaSizes.add("Small");
             }
@@ -259,8 +272,11 @@ public class BuildPizzaListTask extends AsyncTask<Void, Void, Void>
                         case "X-Large":
                             toppingPriceMultiplier.add(2.25);
                             break;
-                        default: toppingPriceMultiplier.add(1.001);
+                        default:
+                            toppingPriceMultiplier.add(1.001);
+                            break;
                     }
+                    break;
                 case "Pizza My Heart":
                     switch (pizzaSize){
                         case "Small":
@@ -276,8 +292,11 @@ public class BuildPizzaListTask extends AsyncTask<Void, Void, Void>
                         case "X-Large":
                             toppingPriceMultiplier.add(3.001);
                             break;
-                        default: toppingPriceMultiplier.add(1.001);
+                        default:
+                            toppingPriceMultiplier.add(1.001);
+                            break;
                     }
+                    break;
                 case "Rusty's Pizza Parlor":
                     switch (pizzaSize){
                         case "Small":
@@ -293,8 +312,11 @@ public class BuildPizzaListTask extends AsyncTask<Void, Void, Void>
                         case "X-Large":
                             toppingPriceMultiplier.add(2.001);
                             break;
-                        default: toppingPriceMultiplier.add(1.001);
+                        default:
+                            toppingPriceMultiplier.add(1.001);
+                            break;
                     }
+                    break;
                 case "Papa John's":
                     switch (pizzaSize){
                         case "Small":
@@ -309,8 +331,13 @@ public class BuildPizzaListTask extends AsyncTask<Void, Void, Void>
                         case "X-Large":
                             toppingPriceMultiplier.add(1.75);
                             break;
-                        default: toppingPriceMultiplier.add(1.001);
+                        default:
+                            toppingPriceMultiplier.add(1.001);
+                            break;
                     }
+                    break;
+                    default:
+                        break;
             }
         }
         return toppingPriceMultiplier;
