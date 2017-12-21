@@ -64,22 +64,9 @@ public class DetailPageFragment extends Fragment implements OnMapReadyCallback {
 
     FragmentHelper activityCallback;
 
-    GeoDataClient mGeoDataClient;
-    PlaceDetectionClient mPlaceDetectionClient;
-    FusedLocationProviderClient mFusedLocationProviderClient;
-
     public static Context context;
 
-    boolean mLocationPermissionGranted = false;
-    Location mLastKnownLocation;
-    Locale mLocale;
-    double currentLatitude;
-    double currentLongitude;
-
-    LatLng mDefaultLocation = new LatLng(34.412936, -119.847863);
     float DEFAULT_ZOOM = 14.0f;
-
-    public static final int REQUEST_LOCATION_ID = 5;
 
     //  LatLng of home 34.170234,-118.462094
 
@@ -100,6 +87,7 @@ public class DetailPageFragment extends Fragment implements OnMapReadyCallback {
     public DetailPageFragment() {
     }
 
+    /*
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,14 +97,15 @@ public class DetailPageFragment extends Fragment implements OnMapReadyCallback {
         mPlaceDetectionClient = Places.getPlaceDetectionClient(getContext(), null);
         // Construct a FusedLocationProviderClient.
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getContext());
-        context = getContext();
     }
+    */
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.detail_page_fragment, container, false);
 
+        //changes current fragment to previous fragment
         Button backButton = (Button) view.findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,14 +116,8 @@ public class DetailPageFragment extends Fragment implements OnMapReadyCallback {
 
         //set index used to get the correct information through the data structures
         final int index = getIndexOfBusiness();
-        //Set Business name of selected business from List View
-        TextView pizzaPlaceTextView = (TextView) view.findViewById(R.id.pizzaPlaceTextView);
-        if (businessName != null) {
-            pizzaPlaceTextView.setText(businessName);
-        }
 
         TextView phoneNumber = (TextView) view.findViewById(R.id.phoneNumTextView);
-        phoneNumber.setText(BuildPizzaListTask.business.get(index).getPhoneNumber());
         //set listener to listen for User tapping on phone number to make call
         phoneNumber.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,24 +173,17 @@ public class DetailPageFragment extends Fragment implements OnMapReadyCallback {
         MapsInitializer.initialize(getContext());
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
-
-        // Turn on the My Location layer and the related control on the map.
-        updateLocationUI();
-
-        // Get the current location of the device and set the position of the map.
-        getDeviceLocation();
 
         startPlacePicker();
 
     }
 
+    //start Google Places UI as an activity
     private void startPlacePicker()
     {
         PlacePicker.IntentBuilder placePicker = new PlacePicker.IntentBuilder();
 
         try{
-            //Intent startPlacePicker = placePicker.build(getActivity());
             startActivityForResult(placePicker.build(getActivity()),1);
         }
         catch (Exception e){
@@ -215,6 +191,9 @@ public class DetailPageFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
+    //Waits for user to select place on Google Places UI before exiting activity and returning to fragment
+    //Returns info about the selected place which is used to set Text Fields
+    //Animates camera
     @Override
     public void onActivityResult(int requestCode,int resultCode,Intent data){
         if(requestCode == 1 && resultCode == RESULT_OK){
@@ -222,103 +201,21 @@ public class DetailPageFragment extends Fragment implements OnMapReadyCallback {
 
             TextView pizzaPlaceTextView = (TextView) view.findViewById(R.id.pizzaPlaceTextView);
             pizzaPlaceTextView.setText(selectPlace.getName());
-            Log.i("PLACE NAME", "PLACE: "+selectPlace.getName());
+            Log.i("BUSINESS NAME", "PLACE: "+selectPlace.getName());
+
+            TextView pizzaAddressTextView = (TextView) view.findViewById(R.id.addressTextView);
+            pizzaAddressTextView.setText(selectPlace.getAddress());
+            Log.i("BUSINESS PHONE NUMBER", "BUSINESS:" +selectPlace.getAddress());
 
             TextView phoneNumber = (TextView) view.findViewById(R.id.phoneNumTextView);
             phoneNumber.setText(selectPlace.getPhoneNumber());
             Log.i("PHONE NUMBER", "PHONE NUMBER: " + selectPlace.getPhoneNumber());
 
-        }
-    }
+            //animate camera to business coordinates on Google Map fragment
+            //places marker at coordinates
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(selectPlace.getLatLng(), DEFAULT_ZOOM));
+            mMap.addMarker(new MarkerOptions().position(selectPlace.getLatLng()).title(selectPlace.getName().toString()));
 
-    private void getLocationPermission() {
-    /*
-     * Request location permission, so that we can get the location of the
-     * device. The result of the permission request is handled by a callback,
-     * onRequestPermissionsResult.
-     */
-        if (ContextCompat.checkSelfPermission(getContext().getApplicationContext(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            mLocationPermissionGranted = true;
-        } else {
-            ActivityCompat.requestPermissions(getActivity(),
-                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                    REQUEST_LOCATION_ID);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String permissions[],
-                                           @NonNull int[] grantResults) {
-        mLocationPermissionGranted = false;
-        switch (requestCode) {
-            case REQUEST_LOCATION_ID: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    mLocationPermissionGranted = true;
-                }
-            }
-        }
-        updateLocationUI();
-    }
-
-    private void updateLocationUI() {
-        if (mMap == null) {
-            return;
-        }
-        try {
-            if (mLocationPermissionGranted) {
-                mMap.setMyLocationEnabled(true);
-                mMap.getUiSettings().setMyLocationButtonEnabled(true);
-            } else {
-                mMap.setMyLocationEnabled(false);
-                mMap.getUiSettings().setMyLocationButtonEnabled(false);
-                mLastKnownLocation = null;
-                getLocationPermission();
-            }
-        } catch (SecurityException e)  {
-            Log.e("Exception: %s3", e.getMessage());
-        }
-    }
-
-
-    private void getDeviceLocation() {
-    /*
-     * Get the best and most recent location of the device, which may be null in rare
-     * cases when a location is not available.
-     */
-        try {
-            if (mLocationPermissionGranted) {
-                Task locationResult = mFusedLocationProviderClient.getLastLocation();
-                locationResult.addOnCompleteListener(getActivity(), new OnCompleteListener() {
-                    @Override
-                    public void onComplete(@NonNull Task task) {
-                        if (task.isSuccessful() && task.getResult() != null) {
-                            Log.i("CURRENT LOCATION: ", task.getResult().toString());
-                            // Set the map's camera position to the current location of the device.
-                            mLastKnownLocation = (Location)task.getResult();
-                            currentLatitude = mLastKnownLocation.getLatitude();
-                            currentLongitude = mLastKnownLocation.getLongitude();
-                            Log.i("CURRENT LOCATION", "Current Latitude: " + currentLatitude + " Current Longitude: " + currentLongitude);
-                        } else {
-                            Log.d("getDeviceLocation", "Current location is null. Using defaults.");
-                            Log.e("getDeviceLocation", "Exception: %s2", task.getException());
-                            //default is UCSB Lat,Long
-                            currentLatitude = 34.412936;
-                            currentLongitude = -119.847863;
-                            /*
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
-                            mMap.getUiSettings().setMyLocationButtonEnabled(false);
-                            */
-                        }
-                    }
-                });
-            }
-        } catch(SecurityException e)  {
-            Log.e("Exception: %s", e.getMessage());
         }
     }
 
