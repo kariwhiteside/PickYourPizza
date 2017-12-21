@@ -25,11 +25,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.Result;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.GeoDataClient;
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceDetectionClient;
 import com.google.android.gms.location.places.Places;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -44,6 +47,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by Kari on 12/14/17.
@@ -134,10 +139,15 @@ public class DetailPageFragment extends Fragment implements OnMapReadyCallback {
         phoneNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //start up phone app (dial pad) and pass in business phone number
-                Intent phoneCall = new Intent(Intent.ACTION_DIAL);
-                phoneCall.setData(Uri.parse("tel:"+BuildPizzaListTask.business.get(index).getPhoneNumber().replaceAll("\\D+","")));
-                startActivity(phoneCall);
+                try {
+                    //start up phone app (dial pad) and pass in business phone number
+                    Intent phoneCall = new Intent(Intent.ACTION_DIAL);
+                    phoneCall.setData(Uri.parse("tel:"+BuildPizzaListTask.business.get(index).getPhoneNumber().replaceAll("\\D+","")));
+                    startActivity(phoneCall);
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -180,17 +190,45 @@ public class DetailPageFragment extends Fragment implements OnMapReadyCallback {
         MapsInitializer.initialize(getContext());
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
 
         // Turn on the My Location layer and the related control on the map.
         updateLocationUI();
 
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
+
+        startPlacePicker();
+
     }
 
-    public void setBusinessName(String businessName) {
-        this.businessName = businessName;
-        Log.i("DetailP/setBusinessName","THIS IS THE SELECTED BUSINESS NAME " + businessName);
+    private void startPlacePicker()
+    {
+        PlacePicker.IntentBuilder placePicker = new PlacePicker.IntentBuilder();
+
+        try{
+            //Intent startPlacePicker = placePicker.build(getActivity());
+            startActivityForResult(placePicker.build(getActivity()),1);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode,int resultCode,Intent data){
+        if(requestCode == 1 && resultCode == RESULT_OK){
+            Place selectPlace = PlacePicker.getPlace(getContext(),data);
+
+            TextView pizzaPlaceTextView = (TextView) view.findViewById(R.id.pizzaPlaceTextView);
+            pizzaPlaceTextView.setText(selectPlace.getName());
+            Log.i("PLACE NAME", "PLACE: "+selectPlace.getName());
+
+            TextView phoneNumber = (TextView) view.findViewById(R.id.phoneNumTextView);
+            phoneNumber.setText(selectPlace.getPhoneNumber());
+            Log.i("PHONE NUMBER", "PHONE NUMBER: " + selectPlace.getPhoneNumber());
+
+        }
     }
 
     private void getLocationPermission() {
@@ -246,6 +284,7 @@ public class DetailPageFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
+
     private void getDeviceLocation() {
     /*
      * Get the best and most recent location of the device, which may be null in rare
@@ -264,14 +303,12 @@ public class DetailPageFragment extends Fragment implements OnMapReadyCallback {
                             currentLatitude = mLastKnownLocation.getLatitude();
                             currentLongitude = mLastKnownLocation.getLongitude();
                             Log.i("CURRENT LOCATION", "Current Latitude: " + currentLatitude + " Current Longitude: " + currentLongitude);
-                            launchMap();
                         } else {
                             Log.d("getDeviceLocation", "Current location is null. Using defaults.");
                             Log.e("getDeviceLocation", "Exception: %s2", task.getException());
                             //default is UCSB Lat,Long
                             currentLatitude = 34.412936;
                             currentLongitude = -119.847863;
-                            launchMap();
                             /*
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
                             mMap.getUiSettings().setMyLocationButtonEnabled(false);
@@ -285,23 +322,12 @@ public class DetailPageFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
-    void launchMap() {
-        /*
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                new LatLng(currentLatitude,
-                        currentLongitude), DEFAULT_ZOOM));
-        */
 
-        List<Address> addressList = null;
-        //check for valid business name
-        if (businessName != null && !businessName.equals(""))
-        {
-            //execute task to search for business on google maps
-            //then focus and mark the map at the address of the business
-            new GoogleMapAsynTask(currentLatitude,currentLongitude,businessName,mMap,addressList).execute();
-        }
-
+    public void setBusinessName(String businessName) {
+        this.businessName = businessName;
+        Log.i("DetailP/setBusinessName","THIS IS THE SELECTED BUSINESS NAME " + businessName);
     }
+
 
     //loops through the business list and checks to see if name matches selected item from ListView
     public int getIndexOfBusiness(){
